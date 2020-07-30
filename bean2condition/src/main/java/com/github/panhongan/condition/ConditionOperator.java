@@ -1,8 +1,15 @@
 package com.github.panhongan.condition;
 
-
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
+
+/**
+ * 条件操作符定义
+ *
+ * @author panhongan
+ * @since 2019.7.8
+ * @version 1.0
+ */
 
 @Getter
 public enum ConditionOperator {
@@ -44,15 +51,15 @@ public enum ConditionOperator {
         return null;
     }
 
-    public static boolean isNumberType(ConditionOperator conditionOperator) {
+    public static boolean isComparableType(ConditionOperator conditionOperator) {
         return (ConditionOperator.LESS == conditionOperator ||
             ConditionOperator.LESS_OR_EQUAL == conditionOperator ||
             ConditionOperator.GREATER == conditionOperator||
             ConditionOperator.GREATER_OR_EQUAL == conditionOperator);
     }
 
-    public static boolean isNotNumberType(ConditionOperator conditionOperator) {
-        return !isNumberType(conditionOperator);
+    public static boolean isNotComparableType(ConditionOperator conditionOperator) {
+        return !isComparableType(conditionOperator);
     }
 
     public static boolean isEqualType(ConditionOperator conditionOperator) {
@@ -63,5 +70,4 @@ public enum ConditionOperator {
     public static boolean isNotEqualType(ConditionOperator conditionOperator) {
         return !isEqualType(conditionOperator);
     }
-
 }

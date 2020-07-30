@@ -1,7 +1,13 @@
-package com.github.panhongan.condition.common;
+package com.github.panhongan.common.utils;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+
+/**
+ * @author panhongan
+ * @since 2019.7.13
+ * @version 1.0
+ */
 
 public class NamingUtils {
 
@@ -30,6 +36,12 @@ public class NamingUtils {
         return builder.toString();
     }
 
+    /**
+     * 匈牙利命名 转 驼峰命名
+     *
+     * @param hungStr 匈牙利命名串
+     * @return 驼峰命名串
+     */
     public static String hung2Camel(String hungStr) {
         if (StringUtils.isEmpty(hungStr)) {
             return null;

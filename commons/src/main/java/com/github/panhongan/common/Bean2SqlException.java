@@ -1,4 +1,10 @@
-package com.github.panhongan.condition.common;
+package com.github.panhongan.common;
+
+/**
+ * @author panhongan
+ * @since 2019.7.13
+ * @version 1.0
+ */
 
 public class Bean2SqlException extends RuntimeException {
 

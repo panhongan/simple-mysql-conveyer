@@ -1,9 +1,13 @@
-package com.github.panhongan.condition.commons;
+package com.github.panhongan.common.utils;
 
-import com.github.panhongan.condition.common.DateUtils;
 import org.junit.Test;
-
 import java.util.Date;
+
+/**
+ * @author panhongan
+ * @since 2019.7.13
+ * @version 1.0
+ */
 
 public class DateUtilsTest {
 

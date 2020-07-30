@@ -1,7 +1,12 @@
-package com.github.panhongan.condition.commons;
+package com.github.panhongan.common.utils;
 
-import com.github.panhongan.condition.common.NamingUtils;
 import org.junit.Test;
+
+/**
+ * @author panhongan
+ * @since 2019.7.14
+ * @version 1.0
+ */
 
 public class NamingUtilsTest {
 

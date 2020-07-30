@@ -1,10 +1,8 @@
-package com.github.panhongan.condition;
+package com.github.panhongan.dal;
 
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Getter
 @Setter
@@ -13,5 +11,4 @@ public class TestObj {
     private Integer age;
     private Float height;
     private Double weight;
-    private Date date;
 }

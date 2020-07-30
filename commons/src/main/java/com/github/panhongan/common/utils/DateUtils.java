@@ -1,10 +1,16 @@
-package com.github.panhongan.condition.common;
+package com.github.panhongan.common.utils;
 
 import java.util.Date;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
+
+/**
+ * @author panhongan
+ * @since 2019.7.13
+ * @version 1.0
+ */
 
 public class DateUtils {
 

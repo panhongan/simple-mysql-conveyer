@@ -17,7 +17,7 @@ import java.util.Map;
  * obj.f1 = "hello"
  * obj.f2 = 100
  *
- * condition sql is : f1 = ? and f2 = ?
+ * condition sql is : f1 != ? and f2 != ?
  * values: (1, "hello"), (2, 100)
  *
  * @param <T> 任意类型的对象
@@ -29,13 +29,13 @@ import java.util.Map;
 @Builder
 @Getter
 @Setter
-public class EqualCondition<T> implements SqlCondition {
+public class NotEqualCondition<T> implements SqlCondition {
 
     private T obj;
 
     @Override
     public ConditionOperator getConditionOperator() {
-        return ConditionOperator.EQUAL;
+        return ConditionOperator.NOT_EQUAL;
     }
 
     @Override

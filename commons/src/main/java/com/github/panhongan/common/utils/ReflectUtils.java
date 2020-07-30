@@ -1,4 +1,4 @@
-package com.github.panhongan.condition.common;
+package com.github.panhongan.common.utils;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * @author panhongan
+ * @since 2019.7.13
+ * @version 1.0
+ */
 
 public class ReflectUtils {
 

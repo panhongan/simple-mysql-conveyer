@@ -3,9 +3,18 @@ package com.github.panhongan.condition.sql;
 import com.github.panhongan.condition.ConditionOperator;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.Collections;
 import java.util.Map;
 
+/**
+ * @author panhongan
+ * @since 2019.7.8
+ * @version 1.0
+ */
+
 public interface SqlCondition {
+
+    public static final Pair<String, Map<Integer, String>> EMPTY_CONDITION_SQL = Pair.of("", Collections.emptyMap());
 
     ConditionOperator getConditionOperator();
 
