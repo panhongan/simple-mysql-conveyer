@@ -9,3 +9,5 @@ bean2sql.iml
 /dal/dal.iml
 /demo/target
 /demo/demo.iml
+/spring-test/target
+/spring-test/spring-test.iml
