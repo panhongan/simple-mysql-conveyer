@@ -1,6 +1,5 @@
 package com.github.panhongan.common.page;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

@@ -62,8 +62,7 @@ public class Bean2SqlUtils {
                 conditionSql.append(PLACE_HOLDER);
                 conditionSql.append(AND_STR);
 
-                // 日期要格式化
-
+                // 日期格式化
                 if (type.equals("Date")) {
                     values.put(index++, DateUtils.format((Date) value, DateUtils.SETTLE_PATTERN));
                 } else {
@@ -187,8 +186,6 @@ public class Bean2SqlUtils {
         sql.append(LEFT_BRACKET);
         sql.append(placeHolders);
         sql.append(RIGHT_BRACKET);
-
-        // 省略一部分
 
         return Pair.of(sql.toString(), values);
     }

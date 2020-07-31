@@ -27,7 +27,7 @@
     </properties>
 
     <modules>
-        <module>spring-test</module>
+        <module>spring-utils</module>
         <module>commons</module>
         <module>bean2condition</module>
         <module>dal</module>
@@ -36,6 +36,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>spring-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>commons</artifactId>

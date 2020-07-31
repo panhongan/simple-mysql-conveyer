@@ -4,6 +4,8 @@ import com.github.panhongan.common.Bean2SqlException;
 import com.github.panhongan.common.page.PageContext;
 import com.github.panhongan.condition.sql.EqualCondition;
 import com.github.panhongan.condition.sql.SqlCondition;
+import com.github.panhongan.spring.InjectUtils;
+import com.github.panhongan.spring.SpringTest;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -23,21 +25,22 @@ import java.util.Map;
  * @version 1.0
  */
 
-@Ignore
-public class TableAccessTest {
+public class TableAccessTest extends SpringTest {
 
     @InjectMocks
-    private MyTableAccess tableAccess;
+    private MyTableAccess tableAccess = new MyTableAccess();
 
     @Mock
     private DruidSqlSession druidSqlSession;
 
     @Before
+    @Override
     public void setUp() {
-        //ReflectionTestUtils.setField(tableAccess, "druidSqlSession", druidSqlSession);
+        super.setUp();
+        InjectUtils.inject(tableAccess, druidSqlSession);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testGetMaxRowId_SqlConditionIsNull() {
         tableAccess.getMaxRowId(null);
     }
@@ -53,7 +56,7 @@ public class TableAccessTest {
         assert (tableAccess.getMaxRowId(condition) == 1L);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testInsert_RecordIsNull() {
         tableAccess.insert(null);
     }
@@ -76,7 +79,7 @@ public class TableAccessTest {
         assert (tableAccess.deleteById(1L) == 1);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testUpdate_RecordIsNull() {
         tableAccess.update(1L, null);
     }
@@ -99,7 +102,7 @@ public class TableAccessTest {
         assert (tableAccess.update(1, obj) == 1);
     }
 
-    @Test (expected = Bean2SqlException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testQueryByCondition_ObjectConditionIsNull() {
         tableAccess.queryByCondition(null);
     }
@@ -112,7 +115,7 @@ public class TableAccessTest {
         assert (tableAccess.queryByCondition(obj).isEmpty());
     }
 
-    @Test (expected = Bean2SqlException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testQueryByCondition_ObjectAndSqlCondition_ObjectConditionIsNull() {
         tableAccess.queryByCondition(null, (SqlCondition) null);
     }
@@ -129,7 +132,7 @@ public class TableAccessTest {
         assert (tableAccess.queryByCondition(obj, (SqlCondition) EqualCondition.builder().obj(obj1).build()).isEmpty());
     }
 
-    @Test (expected = Bean2SqlException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testQueryByCondition_SqlConditionIsNull() {
         tableAccess.queryByCondition(null, TestObj.class);
     }
@@ -143,7 +146,7 @@ public class TableAccessTest {
         assert (tableAccess.queryByCondition(EqualCondition.builder().obj(obj).build(), TestObj.class).isEmpty());
     }
 
-    @Test (expected = Bean2SqlException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testQueryByPage_ObjectConditionIsNull() {
         tableAccess.queryByPage(null, new PageContext());
     }
@@ -161,7 +164,7 @@ public class TableAccessTest {
         assert (tableAccess.queryByPage(obj, pageContext).isEmpty());
     }
 
-    @Test (expected = Bean2SqlException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testQueryByPage_ObjectAndSqlCondition_ObjectConditionIsNull() {
         tableAccess.queryByPage(null, (SqlCondition) null, (PageContext) null);
     }
@@ -182,7 +185,7 @@ public class TableAccessTest {
         assert (tableAccess.queryByPage(obj, EqualCondition.builder().obj(obj1).build(), pageContext).isEmpty());
     }
 
-    @Test (expected = Bean2SqlException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testQueryByPage_SqlConditionIsNull() {
         tableAccess.queryByPage(null, null, TestObj.class);
     }
