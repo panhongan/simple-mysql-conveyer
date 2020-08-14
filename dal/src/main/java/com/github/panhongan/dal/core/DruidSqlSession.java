@@ -4,7 +4,6 @@ import com.github.panhongan.common.Bean2SqlException;
 import com.github.panhongan.common.utils.MysqlUtils;
 import com.github.panhongan.common.utils.NamingUtils;
 import com.github.panhongan.common.utils.ReflectUtils;
-import com.github.panhongan.condition.Bean2SqlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -73,7 +72,7 @@ public class DruidSqlSession {
             }
 
 
-
+            return results;
         } catch (Throwable t) {
             log.error("sql = {}, values = {},class = {}, err = {}", sql, values, c.getName(), t);
             throw new RuntimeException(t);
