@@ -4,17 +4,16 @@ import com.github.panhongan.common.Bean2SqlException;
 import com.github.panhongan.common.page.PageContext;
 import com.github.panhongan.condition.sql.EqualCondition;
 import com.github.panhongan.condition.sql.SqlCondition;
+import com.github.panhongan.dal.core.DruidSqlSession;
 import com.github.panhongan.spring.InjectUtils;
 import com.github.panhongan.spring.SpringTest;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.stereotype.Service;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Collections;
 import java.util.Map;

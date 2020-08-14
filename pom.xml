@@ -21,6 +21,7 @@
         <oval.version>1.86</oval.version>
         <commons.collection4.versin>4.3</commons.collection4.versin>
         <spring.version>5.2.1.RELEASE</spring.version>
+        <druid.datasource.version>1.0.27</druid.datasource.version>
         <slf4j.api.version>1.7.30</slf4j.api.version>
         <mockito.all.version>1.9.5</mockito.all.version>
         <junit.version>4.12</junit.version>
@@ -31,7 +32,6 @@
         <module>commons</module>
         <module>bean2condition</module>
         <module>dal</module>
-        <module>demo</module>
     </modules>
 
     <dependencyManagement>
@@ -129,8 +129,46 @@
 
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!--
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-mvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-util</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            -->
+
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.datasource.version}</version>
             </dependency>
 
             <dependency>
