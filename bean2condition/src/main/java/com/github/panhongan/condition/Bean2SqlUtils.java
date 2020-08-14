@@ -224,7 +224,7 @@ public class Bean2SqlUtils {
         }
 
         if (sql.length() == 0) {
-            throw new Bean2SqlException("no valud for object : " + obj.toString());
+            throw new Bean2SqlException("no value for object : " + obj.toString());
         }
 
         // delete ','

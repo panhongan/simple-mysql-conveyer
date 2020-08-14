@@ -25,6 +25,7 @@
         <slf4j.api.version>1.7.30</slf4j.api.version>
         <mockito.all.version>1.9.5</mockito.all.version>
         <junit.version>4.12</junit.version>
+        <logback.version>1.1.8</logback.version>
     </properties>
 
     <modules>
@@ -187,6 +188,18 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-access</artifactId>
+                <version>${logback.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -128,7 +128,7 @@ public class TableAccessTest extends SpringTest {
         obj1.setAge(10);
 
         Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
-        assert (tableAccess.queryByCondition(obj, (SqlCondition) EqualCondition.builder().obj(obj1).build()).isEmpty());
+        assert (tableAccess.queryByCondition(obj, EqualCondition.builder().obj(obj1).build()).isEmpty());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -165,7 +165,7 @@ public class TableAccessTest extends SpringTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testQueryByPage_ObjectAndSqlCondition_ObjectConditionIsNull() {
-        tableAccess.queryByPage(null, (SqlCondition) null, (PageContext) null);
+        tableAccess.queryByPage(null, null, (PageContext) null);
     }
 
     @Test
@@ -216,8 +216,8 @@ public class TableAccessTest extends SpringTest {
         assert (pair.getRight().size() == 2);
     }
 
-    @Service
     private class MyTableAccess extends AbstractTableAccess<TestObj> {
+
         private static final String TABLE_NAME = "t_person";
 
         @Override

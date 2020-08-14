@@ -1,4 +1,4 @@
-package com.github.panhongan.test;
+package com.github.panhongan.demo;
 
 
 import lombok.Getter;

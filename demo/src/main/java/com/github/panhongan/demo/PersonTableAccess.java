@@ -1,4 +1,4 @@
-package com.github.panhongan.test;
+package com.github.panhongan.demo;
 
 import com.github.panhongan.dal.AbstractTableAccess;
 import org.springframework.stereotype.Service;
@@ -11,9 +11,5 @@ public class PersonTableAccess extends AbstractTableAccess<Person> {
     @Override
     public String getTable() {
         return TABLE;
-    }
-
-    public static void main(String[] args) {
-        // spring初始化
     }
 }
