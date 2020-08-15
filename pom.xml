@@ -26,7 +26,7 @@
         <mockito.all.version>1.9.5</mockito.all.version>
         <junit.version>4.12</junit.version>
         <logback.version>1.1.8</logback.version>
-        <lalaluplus.commons.version>0.1.9</lalaluplus.commons.version>
+        <lalaluplus.commons.version>0.1.10</lalaluplus.commons.version>
     </properties>
 
     <modules>
@@ -134,20 +134,6 @@
                 <version>${spring.version}</version>
             </dependency>
 
-            <!--
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-mvc</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-util</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            -->
-
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
@@ -193,7 +179,7 @@
             <dependency>
                 <groupId>com.github.panhongan</groupId>
                 <artifactId>lalaluplus-commons</artifactId>
-                <version>0.1.9</version>
+                <version>${lalaluplus.commons.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
