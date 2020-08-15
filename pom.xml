@@ -26,13 +26,13 @@
         <mockito.all.version>1.9.5</mockito.all.version>
         <junit.version>4.12</junit.version>
         <logback.version>1.1.8</logback.version>
+        <lalaluplus.commons.version>0.1.9</lalaluplus.commons.version>
     </properties>
 
     <modules>
         <module>spring-utils</module>
-        <module>commons</module>
         <module>bean2condition</module>
-        <module>dal</module>
+        <module>bean-dal</module>
     </modules>
 
     <dependencyManagement>
@@ -45,25 +45,13 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>commons</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>bean2condition</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>dal</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>demo</artifactId>
+                <artifactId>bean-dal</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -200,6 +188,12 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-access</artifactId>
                 <version>${logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.panhongan</groupId>
+                <artifactId>lalaluplus-commons</artifactId>
+                <version>0.1.9</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

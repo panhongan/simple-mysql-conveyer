@@ -2,25 +2,49 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context.xsd
-            http://www.springframework.org/schema/aop
-            http://www.springframework.org/schema/aop/spring-aop.xsd
-            http://www.springframework.org/schema/util
-            http://www.springframework.org/schema/util/spring-util.xsd"
+            http://www.springframework.org/schema/context/spring-context.xsd"
        default-lazy-init="true">
 
     <context:component-scan base-package="com.github.panhongan" />
 
-    <context:property-placeholder location="classpath:config/datasource.properties" />
+    <bean id="propertiesConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config/datasource.properties</value>
+            </list>
+        </property>
+    </bean>
 
-    <util:properties id="datasourceProperties" location="classpath:config/datasource.properties" />
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
 
-    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
+        <property name="initialSize" value="${druid.initialSize}" />
+        <property name="minIdle" value="${druid.minIdle}" />
+        <property name="maxActive" value="${druid.maxActive}" />
+        <property name="maxWait" value="${druid.maxWait}" />
+        <property name="useUnfairLock" value="${druid.useUnfairLock}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+        <property name="validationQuery" value="${druid.validationQuery}" />
+        <property name="testWhileIdle" value="${druid.testWhileIdle}" />
+        <property name="testOnBorrow" value="${druid.testOnBorrow}" />
+        <property name="testOnReturn" value="${druid.testOnReturn}" />
+        <property name="filters" value="${druid.filters}" />
+    </bean>
 
-    <import resource="classpath:spring/spring-datasource.xml" />
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="isolationLevelName" value="ISOLATION_DEFAULT" />
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED" />
+    </bean>
 </beans>

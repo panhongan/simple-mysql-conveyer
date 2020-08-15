@@ -1,7 +1,5 @@
 package com.github.panhongan.condition;
 
-import com.github.panhongan.common.Bean2SqlException;
-import lombok.ToString;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 

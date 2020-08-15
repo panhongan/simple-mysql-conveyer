@@ -6,8 +6,8 @@ bean2sql.iml
 /commons/commons.iml
 /bean2condition/target
 /bean2condition/bean2condition.iml
-/dal/target
-/dal/dal.iml
+/bean-dal/target
+/bean-dal/bean-dal.iml
 /demo/target
 /demo/demo.iml
 /spring-utils/target

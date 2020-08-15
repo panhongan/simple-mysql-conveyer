@@ -1,9 +1,8 @@
 package com.github.panhongan.condition;
 
-import com.github.panhongan.common.Bean2SqlException;
-import com.github.panhongan.common.utils.DateUtils;
-import com.github.panhongan.common.utils.NamingUtils;
-import com.github.panhongan.common.utils.ReflectUtils;
+import com.github.panhongan.utils.time.DateUtils;
+import com.github.panhongan.utils.naming.NamingUtils;
+import com.github.panhongan.utils.reflect.ReflectUtils;
 import com.github.panhongan.condition.sql.SqlCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;

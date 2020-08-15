@@ -14,5 +14,5 @@ public class Person extends DbBase {
 
     private String name;
 
-    private Date birthDay;
+    private Date birthday;
 }
