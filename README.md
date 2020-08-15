@@ -19,5 +19,5 @@
 module : demo  
   
 【完成度】  
-迁移进度：80%
-下一步：spring-utils迁移出去，commons放到lalaluplus-common
+迁移进度：99%  
+下一步：spring-utils迁移出去  
