@@ -5,10 +5,9 @@ import com.github.panhongan.dal.page.PageContext;
 import com.github.panhongan.condition.sql.EqualCondition;
 import com.github.panhongan.condition.sql.SqlCondition;
 import com.github.panhongan.dal.core.DruidSqlSession;
-import com.github.panhongan.spring.InjectUtils;
-import com.github.panhongan.spring.SpringTest;
+import com.github.panhongan.spring.utils.InjectUtils;
+import com.github.panhongan.spring.test.SpringTest;
 import org.apache.commons.lang3.tuple.Pair;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -31,10 +30,8 @@ public class TableAccessTest extends SpringTest {
     @Mock
     private DruidSqlSession druidSqlSession;
 
-    @Before
     @Override
-    public void setUp() {
-        super.setUp();
+    protected void inject() {
         InjectUtils.inject(tableAccess, druidSqlSession);
     }
 

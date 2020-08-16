@@ -27,22 +27,16 @@
         <junit.version>4.12</junit.version>
         <logback.version>1.1.8</logback.version>
         <lalaluplus.commons.version>0.1.10</lalaluplus.commons.version>
+        <spring.utils.version>1.0.1</spring.utils.version>
     </properties>
 
     <modules>
-        <module>spring-utils</module>
         <module>bean2condition</module>
         <module>bean-dal</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
-                <artifactId>spring-utils</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>bean2condition</artifactId>
@@ -84,12 +78,6 @@
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>${joda.time.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>net.sf.oval</groupId>
-                <artifactId>oval</artifactId>
-                <version>${oval.version}</version>
             </dependency>
 
             <dependency>
@@ -180,6 +168,12 @@
                 <groupId>com.github.panhongan</groupId>
                 <artifactId>lalaluplus-commons</artifactId>
                 <version>${lalaluplus.commons.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.panhongan</groupId>
+                <artifactId>spring-utils</artifactId>
+                <version>${spring.utils.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

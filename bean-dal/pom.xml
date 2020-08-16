@@ -23,11 +23,6 @@
         </dependency>
 
         <dependency>
-            <groupId>net.sf.oval</groupId>
-            <artifactId>oval</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>

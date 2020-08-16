@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class DbBase  {
+public class DbBase {
 
     private Long id;
 

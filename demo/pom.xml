@@ -20,7 +20,6 @@
         <bean2sql.version>1.0-SNAPSHOT</bean2sql.version>
     </properties>
 
-
     <dependencies>
         <dependency>
             <groupId>com.github.panhongan</groupId>
