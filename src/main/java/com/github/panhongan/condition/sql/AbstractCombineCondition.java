@@ -32,7 +32,7 @@ public abstract class AbstractCombineCondition implements SqlCondition {
     @Override
     public Pair<String, Map<Integer, String>> conditionSql() {
         if (CollectionUtils.isEmpty(conditions)) {
-            return SqlCondition.EMPTY_CONDITION_SQL;
+            return EMPTY_CONDITION_SQL;
         }
 
         StringBuilder builder = new StringBuilder();

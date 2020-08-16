@@ -6,8 +6,6 @@ import lombok.ToString;
 import net.sf.oval.constraint.Max;
 import net.sf.oval.constraint.Min;
 
-import java.io.Serializable;
-
 /**
  * @author panhongan
  * @since 2019.7.13
