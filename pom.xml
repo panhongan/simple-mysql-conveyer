@@ -25,7 +25,7 @@
         <junit.version>4.12</junit.version>
         <logback.version>1.1.8</logback.version>
         <lalaluplus.commons.version>0.1.10</lalaluplus.commons.version>
-        <spring.utils.version>1.0.1</spring.utils.version>
+        <spring.utils.version>1.0.2</spring.utils.version>
     </properties>
 
     <modules>
