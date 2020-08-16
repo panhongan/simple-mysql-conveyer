@@ -14,11 +14,9 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
         <commons.lang3.version>3.8.1</commons.lang3.version>
-        <commons.codec.version>1.6</commons.codec.version>
         <lombok.version>1.18.10</lombok.version>
         <guava.version>24.1.1-jre</guava.version>
         <joda.time.version>2.3</joda.time.version>
-        <oval.version>1.86</oval.version>
         <commons.collection4.versin>4.3</commons.collection4.versin>
         <spring.version>5.2.1.RELEASE</spring.version>
         <druid.datasource.version>1.0.27</druid.datasource.version>
