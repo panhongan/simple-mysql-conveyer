@@ -2,6 +2,12 @@
 /target
 /.idea
 *.iml
+/mysql-conveyer-commons/target
+/mysql-conveyer-commons/mysql-conveyer-commons.iml
+/bean2sql/target
+/bean2sql/bean2sql.iml
+/mysql-conveyer-core/target
+/mysql-conveyer-core/mysql-conveyer-core.iml
 /demo/target
 /demo/demo.iml
 /.settings

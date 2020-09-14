@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class Person extends DbBase {
+public class PersonDO extends DbBase {
 
     private String name;
 

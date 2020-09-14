@@ -17,14 +17,14 @@
         <druid.datasource.version>1.0.27</druid.datasource.version>
         <lombok.version>1.18.10</lombok.version>
         <mysql.version>8.0.16</mysql.version>
-        <bean2sql.version>1.0.1</bean2sql.version>
+        <simple.mysql.conveyer.version>1.0.1</simple.mysql.conveyer.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.github.panhongan</groupId>
-            <artifactId>bean2sql</artifactId>
-            <version>${bean2sql.version}</version>
+            <artifactId>mysql-conveyer-core</artifactId>
+            <version>${simple.mysql.conveyer.version}</version>
         </dependency>
 
         <dependency>
