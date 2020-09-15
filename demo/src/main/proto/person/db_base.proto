@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package person; // 根据实际目录需改
+
+option java_package = "com.github.panhongan.demo.proto";
+option java_outer_classname = "DbBaseProto";
+option java_multiple_files = true;
+
+import public "google/protobuf/timestamp.proto";
+
+message DbBase {
+    int64 id = 1;
+    string created_by = 2;
+    google.protobuf.Timestamp created_at = 3;
+    string updated_by = 4;
+    google.protobuf.Timestamp updated_at = 5;
+}

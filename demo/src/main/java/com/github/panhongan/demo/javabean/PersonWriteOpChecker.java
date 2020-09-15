@@ -1,7 +1,9 @@
-package com.github.panhongan.demo;
+package com.github.panhongan.demo.javabean;
 
 import com.github.panhongan.commons.MysqlConveyerException;
 import com.github.panhongan.conveyer.service.WriteOpChecker;
+import com.github.panhongan.demo.PersonDO;
+import com.github.panhongan.demo.PersonTableAccess;
 import com.google.common.base.Preconditions;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;

@@ -29,7 +29,7 @@ import java.util.List;
 @Getter
 @Setter
 @Service
-public abstract class AbstractQueryService<B extends DbBase, D extends DbBase> {
+public abstract class AbstractQueryService<B, D extends DbBase> {
 
     protected abstract TableAccess<D> getTableAccess();
 

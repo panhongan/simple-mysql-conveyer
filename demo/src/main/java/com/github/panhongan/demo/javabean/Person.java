@@ -1,4 +1,4 @@
-package com.github.panhongan.demo;
+package com.github.panhongan.demo.javabean;
 
 
 import com.github.panhongan.commons.DbBase;

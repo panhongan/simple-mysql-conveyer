@@ -1,9 +1,11 @@
-package com.github.panhongan.demo;
+package com.github.panhongan.demo.javabean;
 
 import com.github.panhongan.bean2sql.table.TableAccess;
 import com.github.panhongan.conveyer.service.AbstractDataService;
 import com.github.panhongan.conveyer.service.Converter;
 import com.github.panhongan.conveyer.service.WriteOpChecker;
+import com.github.panhongan.demo.PersonDO;
+import com.github.panhongan.demo.PersonTableAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

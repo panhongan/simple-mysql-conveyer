@@ -1,13 +1,15 @@
-package com.github.panhongan.demo;
+package com.github.panhongan.demo.javabean;
 
 import com.github.panhongan.commons.DbBase;
 import com.github.panhongan.conveyer.service.Converter;
+import com.github.panhongan.demo.PersonDO;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
 @Service
 public class PersonConverter implements Converter<Person, PersonDO> {
+
     @Override
     public Person do2bo(PersonDO doObj) {
         if (Objects.isNull(doObj)) {

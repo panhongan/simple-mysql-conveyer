@@ -4,7 +4,8 @@ import com.github.panhongan.bean2sql.condition.sql.EqualCondition;
 import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
 import com.github.panhongan.bean2sql.table.PageContext;
 import com.github.panhongan.bean2sql.transaction.TransactionManagerEx;
-import com.github.panhongan.utils.time.DateUtils;
+import com.github.panhongan.demo.PersonDO;
+import com.github.panhongan.demo.PersonTableAccess;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;

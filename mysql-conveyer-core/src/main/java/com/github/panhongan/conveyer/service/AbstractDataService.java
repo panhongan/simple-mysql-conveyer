@@ -18,7 +18,7 @@ import java.util.Date;
  */
 
 @Service
-public abstract class AbstractDataService<B extends DbBase, D extends DbBase>
+public abstract class AbstractDataService<B, D extends DbBase>
         extends AbstractQueryService<B, D>
         implements DataService<B, D> {
 
