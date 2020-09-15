@@ -8,7 +8,7 @@ import lombok.Builder;
  * obj.f1 = 100
  * obj.f2 = 20
  *
- * sql : f1 >= ? and f2 >= ?
+ * sql : f1 &gt;= ? and f2 &gt;= ?
  * vaues: (1, 100), (2, 20)
  *
  * @param <T> 包含大于或等于字段的对象

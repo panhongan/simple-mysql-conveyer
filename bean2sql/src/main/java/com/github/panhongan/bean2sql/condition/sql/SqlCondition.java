@@ -25,7 +25,7 @@ public interface SqlCondition {
      *              map.value : value at pos, eg : 1000
      *
      *  eg:
-     *  select name, age from t_person where name = ? and age > ?
+     *  select name, age from t_person where name = ? and age &gt; ?
      *  condition value : (1, "hello"), (2, 20)
      *
      *

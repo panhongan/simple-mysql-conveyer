@@ -1,14 +1,13 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
 import com.github.panhongan.bean2sql.condition.ConditionOperator;
-import lombok.Builder;
 
 /**
  * 示例：
  * obj.f1 = 100
  * obj.f2 = 20
  *
- * sql : f1 <= ? and f2 <= ?
+ * sql : f1 &lt;= ? and f2 &lt;= ?
  * vaues: (1, 100), (2, 20)
  *
  * @param <T> 包含小于或等于字段的对象

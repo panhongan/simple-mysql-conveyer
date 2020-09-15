@@ -7,12 +7,16 @@
     <groupId>com.github.panhongan</groupId>
     <artifactId>simple-mysql-conveyer</artifactId>
     <version>1.0.1</version>
+    <packaging>pom</packaging>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>lalaluplus java commons</description>
+    <url>https://github.com/panhongan/lalaluplus-commons</url>
+
     <modules>
         <module>mysql-conveyer-commons</module>
         <module>bean2sql</module>
         <module>mysql-conveyer-core</module>
     </modules>
-    <packaging>pom</packaging>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -268,7 +272,6 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.1</version>
                 <configuration>
-                    <skip>true</skip>
                     <aggregate>true</aggregate>
                     <archive>
                         <manifest>
