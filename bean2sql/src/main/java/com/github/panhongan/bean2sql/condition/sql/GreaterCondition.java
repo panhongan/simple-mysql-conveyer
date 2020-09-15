@@ -17,7 +17,6 @@ import lombok.Builder;
  * @version 1.0
  */
 
-@Builder
 public class GreaterCondition<T> extends AbstractComparableCondition<T> {
 
     @Override

@@ -1,6 +1,6 @@
 package com.github.panhongan.demo;
 
-import com.github.panhongan.conveyer.service.DataType;
+import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
 import com.github.panhongan.conveyer.service.req.AddReq;
 import com.github.panhongan.conveyer.service.req.ModifyReq;
 import com.github.panhongan.conveyer.service.req.QueryByConditionReq;
@@ -19,64 +19,88 @@ public class TestDataServiceDemo {
 
         personDataService = context.getBean(PersonDataService.class);
 
-        add();
+        //add();
+        //modify();
+        //deleteById();
+        //queryById();
+        //queryByCondition();
+        queryByLikeCondition();
+        //queryByPage();
     }
 
     public static void add() {
         Person person = new Person();
-        person.setName("pha");
+        person.setName("pha1");
         person.setBirthday(new Date());
 
         AddReq<Person> request = new AddReq<>();
         request.setCreatedBy("pha");
-        request.setDataType(DataType.TEST1);
+        request.setDataType("person");
         request.setEffectTime(null);
         request.setBizObj(person);
 
-        personDataService.add(request);
+        long id = personDataService.add(request);
+        System.out.println("id = " + id);
     }
 
     public static void modify() {
         Person person = new Person();
-        person.setName("pha");
+        person.setName("pha6");
         person.setBirthday(new Date());
 
         ModifyReq<Person> request = new ModifyReq<>();
-        request.setUpdatedBy("pha");
-        request.setDataType(DataType.TEST1);
+        request.setOriId(1L);
+        request.setUpdatedBy("pha6");
+        request.setDataType("person");
         request.setEffectTime(null);
         request.setNewBizObj(person);
 
-        personDataService.modify(request);
+        System.out.println(personDataService.modify(request));
     }
 
-    public static void delete() {
-        personDataService.deleteById(1L);
+    public static void deleteById() {
+        System.out.println(personDataService.deleteById(1L));
     }
 
     public static void queryById() {
-        personDataService.queryById(1L);
+        System.out.println(personDataService.queryById(6L));
     }
 
     public static void queryByCondition() {
         Person condition = new Person();
-        condition.setName("pha");
+        condition.setName("pha2");
 
         QueryByConditionReq<Person> request = new QueryByConditionReq<>();
         request.setBizObjCondition(condition);
 
-        personDataService.queryByCondition(request);
+        System.out.println(personDataService.queryByCondition(request));
+    }
+
+    public static void queryByLikeCondition() {
+        Person condition = new Person();
+        //condition.setName("pha2");
+
+        Person likeObj = new Person();
+        likeObj.setName("pha");
+        likeObj.setBirthday(new Date(2020 - 1900, 8, 15));
+        LikeCondition likeCondition = LikeCondition.builder().obj(likeObj).build();
+
+        QueryByConditionReq<Person> request = new QueryByConditionReq<>();
+        request.setBizObjCondition(condition);
+        request.setSqlCondition(likeCondition);
+
+        System.out.println(personDataService.queryByCondition(request));
     }
 
     public static void queryByPage() {
         Person condition = new Person();
-        condition.setName("pha");
+        condition.setName("pha2");
 
         QueryByPageReq<Person> request = new QueryByPageReq<>();
         request.setBizObjCondition(condition);
         request.setCurrPage(1);
         request.setPageSize(10);
 
-        personDataService.queryByPage(request);
+        System.out.println(personDataService.queryByPage(request));
     }
 }

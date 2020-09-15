@@ -60,8 +60,8 @@ public abstract class AbstractDataService<B extends DbBase, D extends DbBase>
 
             // modify data
             D newObj = this.getConverter().bo2do(newBizObj);
-            newBizObj.setUpdatedAt(new Date());
-            newBizObj.setUpdatedBy(request.getUpdatedBy());
+            newObj.setUpdatedAt(new Date());
+            newObj.setUpdatedBy(request.getUpdatedBy());
 
             return transactionManagerEx.execute(() -> this.getTableAccess().update(oriId, newObj));
         });

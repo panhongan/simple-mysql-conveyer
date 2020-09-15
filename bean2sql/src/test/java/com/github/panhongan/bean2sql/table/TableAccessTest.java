@@ -47,7 +47,7 @@ public class TableAccessTest extends SpringTest {
         EqualCondition condition = EqualCondition.builder().obj(obj).build();
 
         Mockito.when(druidSqlSession.getMaxRowId(Mockito.anyString(), Mockito.anyMap())).thenReturn(1L);
-        assert (tableAccess.getMaxRowId(condition) == 1L);
+        assert(tableAccess.getMaxRowId(condition) == 1L);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -64,13 +64,13 @@ public class TableAccessTest extends SpringTest {
         obj.setWeight(2.0d);
 
         Mockito.when(druidSqlSession.insert(Mockito.anyString(), Mockito.anyMap())).thenReturn(Collections.singletonList(1L));
-        assert (tableAccess.insert(obj) == 1L);
+        assert(tableAccess.insert(obj) == 1L);
     }
 
     @Test
     public void testDeleteById_Ok() {
         Mockito.when(druidSqlSession.update(Mockito.anyString(), Mockito.anyMap())).thenReturn(1);
-        assert (tableAccess.deleteById(1L) == 1);
+        assert(tableAccess.deleteById(1L) == 1);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -93,7 +93,7 @@ public class TableAccessTest extends SpringTest {
         obj.setWeight(2.0d);
 
         Mockito.when(druidSqlSession.update(Mockito.anyString(), Mockito.anyMap())).thenReturn(1);
-        assert (tableAccess.update(1, obj) == 1);
+        assert(tableAccess.update(1, obj) == 1);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -106,7 +106,7 @@ public class TableAccessTest extends SpringTest {
         TestObj obj = new TestObj();
         obj.setName("hello");
         Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
-        assert (tableAccess.queryByCondition(obj).isEmpty());
+        assert(tableAccess.queryByCondition(obj).isEmpty());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -123,7 +123,7 @@ public class TableAccessTest extends SpringTest {
         obj1.setAge(10);
 
         Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
-        assert (tableAccess.queryByCondition(obj, EqualCondition.builder().obj(obj1).build()).isEmpty());
+        assert(tableAccess.queryByCondition(obj, EqualCondition.builder().obj(obj1).build()).isEmpty());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -137,7 +137,7 @@ public class TableAccessTest extends SpringTest {
         obj.setName("hello");
 
         Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
-        assert (tableAccess.queryByCondition(EqualCondition.builder().obj(obj).build(), TestObj.class).isEmpty());
+        assert(tableAccess.queryByCondition(EqualCondition.builder().obj(obj).build(), TestObj.class).isEmpty());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -155,7 +155,7 @@ public class TableAccessTest extends SpringTest {
         pageContext.setPageSize(10);
 
         Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
-        assert (tableAccess.queryByPage(obj, pageContext).isEmpty());
+        assert(tableAccess.queryByPage(obj, pageContext).isEmpty());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -176,7 +176,7 @@ public class TableAccessTest extends SpringTest {
         pageContext.setPageSize(10);
 
         Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
-        assert (tableAccess.queryByPage(obj, EqualCondition.builder().obj(obj1).build(), pageContext).isEmpty());
+        assert(tableAccess.queryByPage(obj, EqualCondition.builder().obj(obj1).build(), pageContext).isEmpty());
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -194,7 +194,7 @@ public class TableAccessTest extends SpringTest {
         pageContext.setPageSize(10);
 
         Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
-        assert (tableAccess.queryByPage(EqualCondition.builder().obj(obj).build(), pageContext, TestObj.class).isEmpty());
+        assert(tableAccess.queryByPage(EqualCondition.builder().obj(obj).build(), pageContext, TestObj.class).isEmpty());
     }
 
     @Test
@@ -207,8 +207,8 @@ public class TableAccessTest extends SpringTest {
 
         SqlCondition sqlCondition = tableAccess.makeAndCondition(obj, EqualCondition.builder().obj(obj1).build());
         Pair<String, Map<Integer, String>> pair = sqlCondition.conditionSql();
-        assert (pair.getKey().contains("name") && pair.getKey().contains("age"));
-        assert (pair.getRight().size() == 2);
+        assert(pair.getKey().contains("name") && pair.getKey().contains("age"));
+        assert(pair.getRight().size() == 2);
     }
 
     private class MyTableAccess extends AbstractTableAccess<TestObj> {

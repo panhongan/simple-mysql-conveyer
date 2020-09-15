@@ -13,7 +13,7 @@ import lombok.Builder;
  *
  * @param <T> 包含小于或等于字段的对象
  */
-@Builder
+
 public class LessOrEqualCondition<T> extends AbstractComparableCondition<T> {
 
     @Override

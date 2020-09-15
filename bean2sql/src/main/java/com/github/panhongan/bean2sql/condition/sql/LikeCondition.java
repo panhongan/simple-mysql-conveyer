@@ -10,36 +10,33 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.Map;
 
 /**
- * 相等条件通过对象来表达，对象字段类型必须是：Long, Integer, Float, Double, String, Date
- * 后续可支持其他类型
  *
- * 如果对象obj有两个字段: f1 and f2
- * obj.f1 = "hello"
- * obj.f2 = 100
+ * obj对象有String类型两个字段f1和f2, 且取值分别为val和val2(都不为null且不能为空字符串)
+ * 对应的sql条件表达式: f1 like '%val1%' and f2 like '%val2%'
  *
- * condition sql is : f1 = ? and f2 = ?
- * values: (1, "hello"), (2, 100)
  *
- * @param <T> 任意类型的对象
  * @author panhongan
- * @since 2019.7.10
+ * @since 2020.9.10
  * @version 1.0
+ *
+ * @param <T> obj对象里不为null的String/Date类型字段都是like
+ *
  */
 
 @Builder
 @Getter
 @ToString
-public class EqualCondition<T> implements SqlCondition {
+public class LikeCondition<T> implements SqlCondition {
 
     private T obj;
 
     @Override
     public ConditionOperator getConditionOperator() {
-        return ConditionOperator.EQUAL;
+        return ConditionOperator.LIKE;
     }
 
     @Override
     public Pair<String, Map<Integer, String>> conditionSql() {
-        return Bean2SqlUtils.getEqualTypeConditionSql(obj, this.getConditionOperator());
+        return Bean2SqlUtils.getLikeConditionSql(obj);
     }
 }

@@ -30,7 +30,7 @@ public class OrConditionTest {
         orCondition.add(lessCondition).add(equalCondition);
 
         Pair<String, Map<Integer, String>> pair = orCondition.conditionSql();
-        assert (pair.getLeft().equals("((age<?) or (name=?))"));
-        assert (pair.getRight().size() == 2);
+        assert(pair.getLeft().equals("((age<?) or (name=?))"));
+        assert(pair.getRight().size() == 2);
     }
 }

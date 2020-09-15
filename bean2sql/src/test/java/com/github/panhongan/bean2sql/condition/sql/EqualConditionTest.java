@@ -20,7 +20,7 @@ public class EqualConditionTest {
     @Test
     public void testConditionSql_Ok() {
         Pair<String, Map<Integer, String>> pair = EqualCondition.builder().obj(testObj).build().conditionSql();
-        assert (pair.getLeft().equals("(name=? and age=?)"));
-        assert (pair.getRight().size() == 2);
+        assert(pair.getLeft().equals("(name=? and age=?)"));
+        assert(pair.getRight().size() == 2);
     }
 }

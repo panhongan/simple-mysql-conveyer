@@ -7,6 +7,7 @@ import com.github.panhongan.bean2sql.condition.ConditionOperator;
  * @since 2019.7.10
  * @version 1.0
  */
+
 public class OrCondition extends AbstractCombineCondition {
 
     @Override

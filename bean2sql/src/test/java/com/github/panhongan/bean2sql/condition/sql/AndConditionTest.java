@@ -30,7 +30,7 @@ public class AndConditionTest {
         andCondition.add(lessCondition).add(equalCondition);
 
         Pair<String, Map<Integer, String>> pair = andCondition.conditionSql();
-        assert (pair.getLeft().equals("((age<?) and (name=?))"));
-        assert (pair.getRight().size() == 2);
+        assert(pair.getLeft().equals("((age<?) and (name=?))"));
+        assert(pair.getRight().size() == 2);
     }
 }

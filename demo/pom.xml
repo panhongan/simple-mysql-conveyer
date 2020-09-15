@@ -17,6 +17,7 @@
         <druid.datasource.version>1.0.27</druid.datasource.version>
         <lombok.version>1.18.10</lombok.version>
         <mysql.version>8.0.16</mysql.version>
+        <logback.version>1.1.8</logback.version>
         <simple.mysql.conveyer.version>1.0.1</simple.mysql.conveyer.version>
     </properties>
 
@@ -79,6 +80,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
     </dependencies>
 

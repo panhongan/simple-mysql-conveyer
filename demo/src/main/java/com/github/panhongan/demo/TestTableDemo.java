@@ -1,8 +1,10 @@
 package com.github.panhongan.demo;
 
 import com.github.panhongan.bean2sql.condition.sql.EqualCondition;
+import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
 import com.github.panhongan.bean2sql.table.PageContext;
 import com.github.panhongan.bean2sql.transaction.TransactionManagerEx;
+import com.github.panhongan.utils.time.DateUtils;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
@@ -22,24 +24,39 @@ public class TestTableDemo {
 
         transactionManagerEx = context.getBean(TransactionManagerEx.class);
 
-        testQueryByCondition();
+        //testQueryByCondition();
+        testQueryByLikeCondition();
         //testQueryById();
         //testQueryByPage();
         //testGetMaxId();
         //testInsert();
+        //testInsert_TransactionException();
         //testUpdate();
+        //testUpdate_TransactionException();
         //testDeleteById();
+        //testDeleteById_TransactionException();
     }
 
     public static void testQueryByCondition() {
         PersonDO condition = new PersonDO();
-        condition.setName("pha1");
+        condition.setName("pha");
         System.out.println(tableAccess.queryByCondition(condition));
+    }
+
+    public static void testQueryByLikeCondition() {
+        PersonDO condition = new PersonDO();
+        // condition.setName("pha");
+
+        PersonDO likeObj = new PersonDO();
+        likeObj.setName("pha");
+        likeObj.setBirthday(new Date(2020 - 1900, 8, 15));
+        LikeCondition likeCondition = LikeCondition.builder().obj(likeObj).build();
+        System.out.println(tableAccess.queryByCondition(condition, likeCondition));
     }
 
     public static void testQueryById() {
         PersonDO condition = new PersonDO();
-        condition.setId(2L);
+        condition.setId(1L);
         System.out.println(tableAccess.queryByCondition(condition));
     }
 
@@ -63,7 +80,7 @@ public class TestTableDemo {
 
     public static void testInsert() {
         PersonDO obj = new PersonDO();
-        obj.setName("pha4");
+        obj.setName("pha6");
         obj.setBirthday(new Date());
         obj.setCreatedBy("test");
         obj.setCreatedAt(new Date());
@@ -74,19 +91,54 @@ public class TestTableDemo {
         System.out.println(id);
     }
 
+    public static void testInsert_TransactionException() {
+        PersonDO obj = new PersonDO();
+        obj.setName("pha6");
+        obj.setBirthday(new Date());
+        obj.setCreatedBy("test");
+        obj.setCreatedAt(new Date());
+        obj.setUpdatedBy("test");
+        obj.setUpdatedAt(new Date());
+
+        transactionManagerEx.execute(() -> {
+            Long id = transactionManagerEx.execute(() -> tableAccess.insert(obj));
+            System.out.println(id);
+        });
+    }
+
     public static void testUpdate() {
         PersonDO newObj = new PersonDO();
         newObj.setBirthday(new Date(2020 - 1900, 1, 1));
-        newObj.setCreatedBy("test-update");
-        newObj.setUpdatedBy("test-update");
+        newObj.setCreatedBy("test-update1");
+        newObj.setUpdatedBy("test-update2");
         newObj.setUpdatedAt(new Date());
 
         int affectedRows = transactionManagerEx.execute(() -> tableAccess.update(7L, newObj));
         System.out.println(affectedRows);
     }
 
+    public static void testUpdate_TransactionException() {
+        PersonDO newObj = new PersonDO();
+        newObj.setBirthday(new Date(2020 - 1900, 1, 1));
+        newObj.setCreatedBy("test-update1");
+        newObj.setUpdatedBy("test-update1");
+        newObj.setUpdatedAt(new Date());
+
+        transactionManagerEx.execute(() -> {
+            int affectedRows = transactionManagerEx.execute(() -> tableAccess.update(7L, newObj));
+            System.out.println(affectedRows);
+        });
+    }
+
     public static void testDeleteById() {
-        int affectedRows = transactionManagerEx.execute(() -> tableAccess.deleteById(3L));
+        int affectedRows = transactionManagerEx.execute(() -> tableAccess.deleteById(4L));
         System.out.println(affectedRows);
+    }
+
+    public static void testDeleteById_TransactionException() {
+        transactionManagerEx.execute(() -> {
+            int affectedRows = transactionManagerEx.execute(() -> tableAccess.deleteById(3L));
+            System.out.println(affectedRows);
+        });
     }
 }

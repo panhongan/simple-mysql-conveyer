@@ -49,7 +49,7 @@ public class Bean2SqlUtils {
             Collection<Field> fields = ReflectUtils.getClassBeanFieldFast(conditionObj.getClass());
             for (Field field : fields) {
                 Object value = field.get(conditionObj);
-                if (value == null) {
+                if (Objects.isNull(value)) {
                     continue;
                 }
 
@@ -99,7 +99,7 @@ public class Bean2SqlUtils {
             Collection<Field> fields = ReflectUtils.getClassBeanFieldFast(conditionObj.getClass());
             for (Field field : fields) {
                 Object value = field.get(conditionObj);
-                if (value == null) {
+                if (Objects.isNull(value)) {
                     continue;
                 }
 
@@ -136,15 +136,75 @@ public class Bean2SqlUtils {
             return SqlCondition.EMPTY_CONDITION_SQL;
         }
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(fieldName);
-        builder.append(" between ? and ?");
+        StringBuilder sql = new StringBuilder();
+        sql.append(fieldName);
+        sql.append(" between ? and ?");
+
+        // 首尾增加()
+        sql.insert(0, LEFT_BRACKET);
+        sql.append(RIGHT_BRACKET);
 
         Map<Integer, String> values = new HashMap<>();
         values.put(1, begin.toString());
         values.put(2, end.toString());
 
-        return Pair.of(builder.toString(), values);
+        return Pair.of(sql.toString(), values);
+    }
+
+    public static <T> Pair<String, Map<Integer, String>> getLikeConditionSql(T conditionObj) {
+        if (Objects.isNull(conditionObj)) {
+            return SqlCondition.EMPTY_CONDITION_SQL;
+        }
+
+        StringBuilder sql = new StringBuilder();
+        Map<Integer, String> values = new HashMap<>();
+        int index = 1;
+
+        try {
+            Collection<Field> fields = ReflectUtils.getClassBeanFieldFast(conditionObj.getClass());
+            for (Field field : fields) {
+                Object value = field.get(conditionObj);
+                if (Objects.isNull(value)) {
+                    continue;
+                }
+
+                // 必须是String类型字段或Date
+                String type = field.getType().getSimpleName();
+                if (!checkLikeFieldType(type)) {
+                    continue;
+                }
+
+                // 不能为null且不能是空字符串
+                String strVal = value.toString();
+                if (StringUtils.isEmpty(strVal)) {
+                    continue;
+                }
+
+                sql.append(NamingUtils.camel2Hung(field.getName()));
+                sql.append(" like ");
+                sql.append(PLACE_HOLDER);
+                sql.append(AND_STR);
+
+                if (type.equals("String")) {
+                    values.put(index++, "%" + strVal + "%");
+                } else {
+                    values.put(index++, "%" + DateUtils.format((Date) value, DateUtils.SETTLE_PATTERN).substring(0, 10) + "%");
+                }
+            }
+        } catch (Exception e) {
+            throw new MysqlConveyerException(e);
+        }
+
+        if (sql.length() > 0) {
+            int pos = sql.lastIndexOf(AND_STR);
+            sql.delete(pos, pos + AND_STR.length());
+
+            // 首尾增加()
+            sql.insert(0, LEFT_BRACKET);
+            sql.append(RIGHT_BRACKET);
+        }
+
+        return Pair.of(sql.toString(), values);
     }
 
     public static <T> Pair<String, Map<Integer, String>> getInsertSqlByObj(T obj) {
@@ -161,7 +221,7 @@ public class Bean2SqlUtils {
             Collection<Field> fields = ReflectUtils.getClassBeanFieldFast(obj.getClass());
             for (Field field : fields) {
                 Object value = field.get(obj);
-                if (value == null) {
+                if (Objects.isNull(value)) {
                     continue;
                 }
 
@@ -220,7 +280,7 @@ public class Bean2SqlUtils {
             Collection<Field> fields = ReflectUtils.getClassBeanFieldFast(obj.getClass());
             for (Field field : fields) {
                 Object value = field.get(obj);
-                if (value == null) {
+                if (Objects.isNull(value)) {
                     continue;
                 }
 
@@ -265,7 +325,7 @@ public class Bean2SqlUtils {
     }
 
     static String getSelectFieldsString(Class c) {
-        if (c == null) {
+        if (Objects.isNull(c)) {
             return null;
         }
 
@@ -299,5 +359,9 @@ public class Bean2SqlUtils {
     public static boolean checkComparableFieldType(String type) {
         return ("Long".equals(type) || "Integer".equals(type) || "Short".equals(type) ||
                 "Float".equals(type) || "Double".equals(type) || "Date".equals(type));
+    }
+
+    public static boolean checkLikeFieldType(String type) {
+        return ("String".equals(type) || "Date".equals(type));
     }
 }

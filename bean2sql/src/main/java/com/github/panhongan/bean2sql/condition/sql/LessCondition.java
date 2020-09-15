@@ -1,6 +1,7 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
 import com.github.panhongan.bean2sql.condition.ConditionOperator;
+import lombok.Builder;
 
 /**
  * 示例：

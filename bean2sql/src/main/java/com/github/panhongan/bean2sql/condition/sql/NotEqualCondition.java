@@ -4,7 +4,7 @@ import com.github.panhongan.bean2sql.condition.Bean2SqlUtils;
 import com.github.panhongan.bean2sql.condition.ConditionOperator;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Map;
@@ -28,7 +28,7 @@ import java.util.Map;
 
 @Builder
 @Getter
-@Setter
+@ToString
 public class NotEqualCondition<T> implements SqlCondition {
 
     private T obj;

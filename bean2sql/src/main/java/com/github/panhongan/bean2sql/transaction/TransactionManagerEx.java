@@ -1,5 +1,6 @@
 package com.github.panhongan.bean2sql.transaction;
 
+import com.github.panhongan.commons.MysqlConveyerException;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @Service
@@ -19,16 +21,28 @@ public class TransactionManagerEx {
 
     private static Map<Thread, TransactionStatus> transactionStatusMap = new ConcurrentHashMap<>();
 
+    private static Map<Thread, AtomicInteger> threadCounter = new ConcurrentHashMap<>();
+
     public <T> T execute(Callable<T> callable) {
         return transactionTemplate.execute(transactionStatus -> {
-            transactionStatusMap.put(Thread.currentThread(), transactionStatus);
+            Thread currentThread = Thread.currentThread();
+
+            // 事务每次执行都会创建TransactionStatus，里面包含了新的连接。
+            // 为了避免连接泄漏，不允许事务里包含事务
+            if (transactionStatusMap.containsKey(currentThread)) {
+                throw new MysqlConveyerException("当前线程执行逻辑包含事务嵌套，请检查代码, threadName=" + currentThread.getName());
+            }
+
+            transactionStatusMap.put(currentThread, transactionStatus);
 
             try {
                 return callable.call();
+            } catch (MysqlConveyerException e) {
+                throw e;
             } catch (Throwable t) {
-                throw new RuntimeException(t);
+                throw new MysqlConveyerException(t);
             } finally  {
-                transactionStatusMap.remove(Thread.currentThread());
+                transactionStatusMap.remove(currentThread);
             }
         });
     }

@@ -37,6 +37,7 @@ public class DbBase implements Serializable {
             return;
         }
 
+        dst.setId(src.getId());
         dst.setCreatedBy(src.getCreatedBy());
         dst.setCreatedAt(src.getCreatedAt());
         dst.setUpdatedBy(src.getUpdatedBy());

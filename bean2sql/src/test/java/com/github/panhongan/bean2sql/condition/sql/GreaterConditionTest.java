@@ -23,7 +23,7 @@ public class GreaterConditionTest {
         condition.setObj(testObj);
 
         Pair<String, Map<Integer, String>> pair = condition.conditionSql();
-        assert (pair.getLeft().equals("(age>?)"));
-        assert (pair.getRight().size() == 1);
+        assert(pair.getLeft().equals("(age>?)"));
+        assert(pair.getRight().size() == 1);
     }
 }
