@@ -1,6 +1,6 @@
 namespace java com.github.panhongan.demo.thrift
 
-typedef string timestamp
+typedef i64 timestamp
 
 struct DbBase {
     1: i64 id;

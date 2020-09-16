@@ -10,6 +10,8 @@
 /mysql-conveyer-core/mysql-conveyer-core.iml
 /demo/target
 /demo/demo.iml
+/demo/src/main/gen-proto
+/demo/src/main/gen-thrift
 /.settings
 .classpath
 .project

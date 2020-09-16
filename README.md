@@ -18,5 +18,5 @@
 module : demo  
 包含了JavaBean/Thrift/ProtoBuf三种数据序列化方式 应用当前框架。  
   
-【下一步】
+【下一步】  
 支持更多数据库类型  
