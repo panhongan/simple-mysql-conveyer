@@ -4,11 +4,15 @@ import com.github.panhongan.bean2sql.condition.sql.EqualCondition;
 import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
 import com.github.panhongan.bean2sql.table.PageContext;
 import com.github.panhongan.bean2sql.transaction.TransactionManagerEx;
-import com.github.panhongan.demo.PersonDO;
-import com.github.panhongan.demo.PersonTableAccess;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
+
+/**
+ * @author panhongan
+ * @since 2020.9.1
+ * @version 1.0
+ */
 
 public class TestTableDemo {
 

@@ -8,6 +8,12 @@ import lombok.ToString;
 
 import java.util.Date;
 
+/**
+ * @author panhongan
+ * @since 2020.9.1
+ * @version 1.0
+ */
+
 @Getter
 @Setter
 @ToString(callSuper = true)

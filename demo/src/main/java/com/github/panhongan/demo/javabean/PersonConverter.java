@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
+/**
+ * @author panhongan
+ * @since 2020.9.1
+ * @version 1.0
+ */
+
 @Service
 public class PersonConverter implements Converter<Person, PersonDO> {
 
