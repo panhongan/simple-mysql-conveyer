@@ -26,7 +26,6 @@ public class TransactionManagerExTest extends SpringTest {
     @Ignore
     @Test (expected = MysqlConveyerException.class)
     public void testExecute_Exception() {
-        Mockito.when(transactionTemplate.execute(Mockito.any())).thenCallRealMethod();
         transactionManagerEx.execute(() -> {
             throw new RuntimeException("abc");
         });

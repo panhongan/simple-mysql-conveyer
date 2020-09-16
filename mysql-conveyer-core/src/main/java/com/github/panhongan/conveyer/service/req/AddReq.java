@@ -16,7 +16,6 @@ import java.util.Date;
  * @param <B> 业务对象
  */
 
-
 @Getter
 @Setter
 @ToString

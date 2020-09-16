@@ -14,7 +14,6 @@ import net.sf.oval.constraint.Min;
  * @param <B> 业务对象
  */
 
-
 @Getter
 @Setter
 @ToString

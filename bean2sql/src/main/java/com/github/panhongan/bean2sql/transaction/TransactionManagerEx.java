@@ -12,6 +12,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * @author panhongan
+ * @since 2020.9.14
+ * @version 1.0
+ */
+
 @Getter
 @Service
 public class TransactionManagerEx {
