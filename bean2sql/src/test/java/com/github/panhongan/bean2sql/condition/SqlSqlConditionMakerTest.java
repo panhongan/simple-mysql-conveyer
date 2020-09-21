@@ -1,11 +1,11 @@
 package com.github.panhongan.bean2sql.condition;
 
 import com.github.panhongan.bean2sql.TestObj;
-import com.github.panhongan.bean2sql.condition.sql.AndCondition;
-import com.github.panhongan.bean2sql.condition.sql.BetweenAndCondition;
-import com.github.panhongan.bean2sql.condition.sql.EqualCondition;
-import com.github.panhongan.bean2sql.condition.sql.LessCondition;
-import com.github.panhongan.bean2sql.condition.sql.OrCondition;
+import com.github.panhongan.bean2sql.condition.impl.AndCondition;
+import com.github.panhongan.bean2sql.condition.impl.BetweenAndCondition;
+import com.github.panhongan.bean2sql.condition.impl.EqualCondition;
+import com.github.panhongan.bean2sql.condition.impl.LessCondition;
+import com.github.panhongan.bean2sql.condition.impl.OrCondition;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 

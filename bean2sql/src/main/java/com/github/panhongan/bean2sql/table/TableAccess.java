@@ -2,7 +2,7 @@ package com.github.panhongan.bean2sql.table;
 
 import com.github.panhongan.commons.MysqlConveyerException;
 import com.github.panhongan.commons.PageResult;
-import com.github.panhongan.bean2sql.condition.sql.SqlCondition;
+import com.github.panhongan.bean2sql.condition.SqlCondition;
 import net.sf.oval.constraint.NotNull;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.github.panhongan.demo.javabean;
 
 import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
-import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
+import com.github.panhongan.bean2sql.condition.impl.LikeCondition;
 import com.github.panhongan.conveyer.service.req.AddReq;
 import com.github.panhongan.conveyer.service.req.ModifyReq;
 import com.github.panhongan.conveyer.service.req.QueryByConditionReq;

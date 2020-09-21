@@ -1,4 +1,4 @@
-package com.github.panhongan.bean2sql.condition.sql;
+package com.github.panhongan.bean2sql.condition.impl;
 
 import com.github.panhongan.bean2sql.TestObj;
 import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
@@ -14,7 +14,7 @@ import java.util.Map;
  * @version 1.0
  */
 
-public class LessConditionTest {
+public class GreaterConditionTest {
 
     private TestObj testObj = new TestObj();
 
@@ -26,8 +26,8 @@ public class LessConditionTest {
 
     @Test
     public void testConditionSql_Ok() {
-        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.lessCondition(testObj).conditionSql();
-        assert(pair.getLeft().equals("(age<?)"));
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.greaterCondition(testObj).conditionSql();
+        assert(pair.getLeft().equals("(age>?)"));
         assert(pair.getRight().size() == 1);
     }
 }

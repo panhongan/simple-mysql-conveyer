@@ -1,7 +1,7 @@
-package com.github.panhongan.bean2sql.condition.sql;
+package com.github.panhongan.bean2sql.condition.impl;
 
-import com.github.panhongan.bean2sql.TestObj;
 import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
+import com.github.panhongan.bean2sql.TestObj;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import java.util.Map;
  * @version 1.0
  */
 
-public class NotEqualConditionTest {
+public class EqualConditionTest {
 
     private TestObj testObj = new TestObj();
 
@@ -26,8 +26,8 @@ public class NotEqualConditionTest {
 
     @Test
     public void testConditionSql_Ok() {
-        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.notEqualCondition(testObj).conditionSql();
-        assert(pair.getLeft().equals("(name!=? and age!=?)"));
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.equalCondition(testObj).conditionSql();
+        assert(pair.getLeft().equals("(name=? and age=?)"));
         assert(pair.getRight().size() == 2);
     }
 }

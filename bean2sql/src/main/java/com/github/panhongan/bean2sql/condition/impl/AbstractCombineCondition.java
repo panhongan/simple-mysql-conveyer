@@ -1,6 +1,7 @@
-package com.github.panhongan.bean2sql.condition.sql;
+package com.github.panhongan.bean2sql.condition.impl;
 
-import com.github.panhongan.bean2sql.condition.Bean2SqlUtils;
+import com.github.panhongan.bean2sql.Bean2SqlUtils;
+import com.github.panhongan.bean2sql.condition.SqlCondition;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;

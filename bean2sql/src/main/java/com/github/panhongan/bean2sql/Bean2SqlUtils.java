@@ -1,10 +1,11 @@
-package com.github.panhongan.bean2sql.condition;
+package com.github.panhongan.bean2sql;
 
+import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
 import com.github.panhongan.commons.MysqlConveyerException;
 import com.github.panhongan.utils.time.DateUtils;
 import com.github.panhongan.utils.naming.NamingUtils;
 import com.github.panhongan.utils.reflect.ReflectUtils;
-import com.github.panhongan.bean2sql.condition.sql.SqlCondition;
+import com.github.panhongan.bean2sql.condition.SqlCondition;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 

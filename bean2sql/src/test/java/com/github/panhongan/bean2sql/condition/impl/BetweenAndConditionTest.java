@@ -1,4 +1,4 @@
-package com.github.panhongan.bean2sql.condition.sql;
+package com.github.panhongan.bean2sql.condition.impl;
 
 import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
 import org.apache.commons.lang3.tuple.Pair;

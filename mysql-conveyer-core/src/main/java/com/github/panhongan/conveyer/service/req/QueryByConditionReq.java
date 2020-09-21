@@ -1,6 +1,6 @@
 package com.github.panhongan.conveyer.service.req;
 
-import com.github.panhongan.bean2sql.condition.sql.SqlCondition;
+import com.github.panhongan.bean2sql.condition.SqlCondition;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

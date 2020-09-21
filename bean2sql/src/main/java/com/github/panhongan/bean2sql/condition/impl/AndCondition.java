@@ -1,4 +1,4 @@
-package com.github.panhongan.bean2sql.condition.sql;
+package com.github.panhongan.bean2sql.condition.impl;
 
 import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
 
@@ -8,10 +8,10 @@ import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
  * @version 1.0
  */
 
-public class OrCondition extends AbstractCombineCondition {
+public class AndCondition extends AbstractCombineCondition {
 
     @Override
     public SqlConditionOperator getConditionOperator() {
-        return SqlConditionOperator.OR;
+        return SqlConditionOperator.AND;
     }
 }

@@ -1,5 +1,6 @@
 package com.github.panhongan.bean2sql.condition;
 
+import com.github.panhongan.bean2sql.Bean2SqlUtils;
 import com.github.panhongan.bean2sql.TestObj;
 import com.github.panhongan.commons.MysqlConveyerException;
 import org.apache.commons.lang3.tuple.Pair;

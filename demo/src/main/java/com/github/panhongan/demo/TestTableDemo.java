@@ -1,7 +1,7 @@
 package com.github.panhongan.demo;
 
 import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
-import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
+import com.github.panhongan.bean2sql.condition.impl.LikeCondition;
 import com.github.panhongan.bean2sql.table.PageContext;
 import com.github.panhongan.bean2sql.transaction.TransactionManagerEx;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
