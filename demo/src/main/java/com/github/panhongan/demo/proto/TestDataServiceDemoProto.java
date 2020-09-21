@@ -1,5 +1,6 @@
 package com.github.panhongan.demo.proto;
 
+import com.github.panhongan.bean2sql.condition.ConditionMaker;
 import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
 import com.github.panhongan.conveyer.service.req.AddReq;
 import com.github.panhongan.conveyer.service.req.ModifyReq;
@@ -99,7 +100,7 @@ public class TestDataServiceDemoProto {
                 .build();
         PersonDO personDO = personConverterProto.bo2do(likeObj);
 
-        LikeCondition likeCondition = LikeCondition.builder().obj(personDO).build();
+        LikeCondition likeCondition = ConditionMaker.likeCondition(personDO);
 
         QueryByConditionReq<Person> request = new QueryByConditionReq<>();
         request.setBizObjCondition(condition);

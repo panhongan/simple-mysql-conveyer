@@ -9,8 +9,8 @@
     <version>1.0.2</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>lalaluplus java commons</description>
-    <url>https://github.com/panhongan/lalaluplus-commons</url>
+    <description>simple mysql conveyer</description>
+    <url>https://github.com/panhongan/simple-mysql-conveyer</url>
 
     <modules>
         <module>mysql-conveyer-commons</module>

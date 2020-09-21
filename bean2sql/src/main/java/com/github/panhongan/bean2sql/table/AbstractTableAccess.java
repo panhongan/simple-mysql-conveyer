@@ -1,5 +1,6 @@
 package com.github.panhongan.bean2sql.table;
 
+import com.github.panhongan.bean2sql.condition.ConditionMaker;
 import com.github.panhongan.commons.MysqlConveyerException;
 import com.github.panhongan.commons.PageResult;
 import com.github.panhongan.utils.object.ObjectUtils;
@@ -44,7 +45,6 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
         sql.append(this.getTable());
 
         Pair<String, Map<Integer, String>> pair = SqlCondition.EMPTY_CONDITION_SQL;
-
         if (sqlCondition != null) {
             pair = sqlCondition.conditionSql();
         }
@@ -165,7 +165,7 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
     }
 
     protected SqlCondition makeAndCondition(D condition, SqlCondition sqlCondition) {
-        EqualCondition equalCondition = EqualCondition.builder().obj(condition).build();
+        EqualCondition equalCondition = ConditionMaker.equalCondition(condition);
         AndCondition andCondition = new AndCondition();
         andCondition.add(equalCondition).add(sqlCondition);
         return andCondition;

@@ -1,11 +1,18 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
 import com.github.panhongan.bean2sql.TestObj;
+import com.github.panhongan.bean2sql.condition.ConditionMaker;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Map;
+
+/**
+ * @author panhongan
+ * @since 2020.9.15
+ * @version 1.0
+ */
 
 public class GreaterOrEqualConditionTest {
 
@@ -19,10 +26,7 @@ public class GreaterOrEqualConditionTest {
 
     @Test
     public void testConditionSql_Ok() {
-        GreaterOrEqualCondition condition = new GreaterOrEqualCondition();
-        condition.setObj(testObj);
-
-        Pair<String, Map<Integer, String>> pair = condition.conditionSql();
+        Pair<String, Map<Integer, String>> pair = ConditionMaker.greaterOrEqualCondition(testObj).conditionSql();
         assert(pair.getLeft().equals("(age>=?)"));
         assert(pair.getRight().size() == 1);
     }

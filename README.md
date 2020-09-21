@@ -14,9 +14,11 @@
 1）根据Mybatis的原理，Java Bean可转换为Sql语句；  
 2）Java对象是树形结构，Sql语句也是树形结构，可对应。  
   
+  
 【应用示例】  
 module : demo  
-包含了JavaBean/Thrift/ProtoBuf三种数据序列化方式 应用当前框架。  
+提供了JavaBean/Thrift/ProtoBuf三种数据定义方式和simple-mysq-core结合应用的demo。  
+  
   
 【下一步】  
-支持更多数据库类型  
+支持更多数据库字段类型  

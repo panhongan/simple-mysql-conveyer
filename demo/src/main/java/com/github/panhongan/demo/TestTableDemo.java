@@ -1,5 +1,6 @@
 package com.github.panhongan.demo;
 
+import com.github.panhongan.bean2sql.condition.ConditionMaker;
 import com.github.panhongan.bean2sql.condition.sql.EqualCondition;
 import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
 import com.github.panhongan.bean2sql.table.PageContext;
@@ -55,7 +56,7 @@ public class TestTableDemo {
         PersonDO likeObj = new PersonDO();
         likeObj.setName("pha");
         likeObj.setBirthday(new Date(2020 - 1900, 8, 15));
-        LikeCondition likeCondition = LikeCondition.builder().obj(likeObj).build();
+        LikeCondition likeCondition = ConditionMaker.likeCondition(likeObj);
         System.out.println(tableAccess.queryByCondition(condition, likeCondition));
     }
 
@@ -80,7 +81,7 @@ public class TestTableDemo {
 
         PersonDO condition = new PersonDO();
         condition.setName("pha1");
-        System.out.println(tableAccess.getMaxRowId(EqualCondition.builder().obj(condition).build()));
+        System.out.println(tableAccess.getMaxRowId(ConditionMaker.equalCondition(condition)));
     }
 
     public static void testInsert() {

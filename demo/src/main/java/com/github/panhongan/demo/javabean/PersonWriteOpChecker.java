@@ -46,8 +46,6 @@ public class PersonWriteOpChecker implements WriteOpChecker<Person> {
         if (CollectionUtils.isEmpty(list)) {
             throw new MysqlConveyerException("待修改记录不存在, id=" + oriId);
         }
-
-        Preconditions.checkArgument(list.size() == 1, "记录数大于1, id=" + oriId);
     }
 
     @Override

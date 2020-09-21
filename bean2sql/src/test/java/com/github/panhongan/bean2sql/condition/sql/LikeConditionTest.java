@@ -1,12 +1,19 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
 import com.github.panhongan.bean2sql.TestObj;
+import com.github.panhongan.bean2sql.condition.ConditionMaker;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
 import java.util.Map;
+
+/**
+ * @author panhongan
+ * @since 2020.9.15
+ * @version 1.0
+ */
 
 public class LikeConditionTest {
 
@@ -21,7 +28,7 @@ public class LikeConditionTest {
 
     @Test
     public void testConditionSql_Ok() {
-        Pair<String, Map<Integer, String>> pair = LikeCondition.builder().obj(testObj).build().conditionSql();
+        Pair<String, Map<Integer, String>> pair = ConditionMaker.likeCondition(testObj).conditionSql();
         System.out.println(pair);
         assert(pair.getLeft().equals("(name like ? and date like ?)"));
         assert(pair.getRight().size() == 2);
