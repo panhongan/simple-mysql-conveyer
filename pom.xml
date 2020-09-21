@@ -216,6 +216,7 @@
                 <groupId>com.github.panhongan</groupId>
                 <artifactId>spring-utils</artifactId>
                 <version>${spring.utils.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

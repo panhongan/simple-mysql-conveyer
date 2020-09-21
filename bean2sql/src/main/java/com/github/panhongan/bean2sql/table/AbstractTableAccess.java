@@ -1,21 +1,19 @@
 package com.github.panhongan.bean2sql.table;
 
+import com.github.panhongan.bean2sql.SqlMaker;
 import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
 import com.github.panhongan.commons.MysqlConveyerException;
 import com.github.panhongan.commons.PageResult;
 import com.github.panhongan.utils.object.ObjectUtils;
-import com.github.panhongan.bean2sql.Bean2SqlUtils;
 import com.github.panhongan.bean2sql.condition.impl.AndCondition;
 import com.github.panhongan.bean2sql.condition.impl.EqualCondition;
 import com.github.panhongan.bean2sql.condition.SqlCondition;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.oval.constraint.NotNull;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,51 +38,34 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
 
     @Override
     public long getMaxRowId(SqlCondition sqlCondition) throws MysqlConveyerException {
-        StringBuilder sql = new StringBuilder();
-        sql.append("select max(id) from ");
-        sql.append(this.getTable());
-
-        Pair<String, Map<Integer, String>> pair = SqlCondition.EMPTY_CONDITION_SQL;
-        if (sqlCondition != null) {
-            pair = sqlCondition.conditionSql();
-        }
-
-        if (StringUtils.isNotEmpty(pair.getLeft())) {
-            sql.append(" where ");
-            sql.append(pair.getLeft());
-        }
-
-        log.info("getMaxRowId, sql = {}, values = {}", sql, pair.getRight());
-        return druidSqlSession.getMaxRowId(sql.toString(), pair.getRight());
+        Pair<String, Map<Integer, String>> pair = SqlMaker.makeMaxRowIdSql(this.getTable(), sqlCondition);
+        log.info("getMaxRowId, sql = {}, values = {}", pair.getLeft(), pair.getRight());
+        return druidSqlSession.getMaxRowId(pair.getLeft(), pair.getRight());
     }
 
     @Override
     public long insert(@NotNull D record) throws MysqlConveyerException {
         ObjectUtils.validateObject(record);
 
-        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getInsertSqlByObj(record);
-        String sql = "insert into " + this.getTable() + pair.getLeft();
-        log.info("insert, sql = {}, values = {}", sql, pair.getRight());
-        return druidSqlSession.insert(sql, pair.getRight()).get(0);
+        Pair<String, Map<Integer, String>> pair = SqlMaker.makeInsertSql(this.getTable(), record);
+        log.info("insert, sql = {}, values = {}", pair.getLeft(), pair.getRight());
+        return druidSqlSession.insert(pair.getLeft(), pair.getRight()).get(0);
     }
 
     @Override
     public int deleteById(long id) throws MysqlConveyerException {
-        String sql = "delete from " + this.getTable() + " where id=?";
-        Map<Integer, String> values = new HashMap<>();
-        values.put(1, String.valueOf(id));
-        log.info("deleteById, sql = {}, values = {}", sql, values);
-        return druidSqlSession.update(sql, values);
+        Pair<String, Map<Integer, String>> pair = SqlMaker.makeDeleteByIdSql(this.getTable(), id);
+        log.info("deleteById, sql = {}, values = {}", pair.getLeft(), pair.getRight());
+        return druidSqlSession.update(pair.getLeft(), pair.getRight());
     }
 
     @Override
     public int update(long id, @NotNull D newRecord) throws MysqlConveyerException {
         ObjectUtils.validateObject(newRecord);
 
-        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getUpdateSqlByObj(id, newRecord);
-        String sql = "update " + this.getTable() + " set " + pair.getLeft();
-        log.info("update, sql = {}, values = {}", sql, pair.getRight());
-        return druidSqlSession.update(sql, pair.getRight());
+        Pair<String, Map<Integer, String>> pair = SqlMaker.makeUpdateSql(this.getTable(), id, newRecord);
+        log.info("update, sql = {}, values = {}", pair.getLeft(), pair.getRight());
+        return druidSqlSession.update(pair.getLeft(), pair.getRight());
     }
 
     @Override
@@ -105,20 +86,9 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
     public List<D> queryByCondition(@NotNull SqlCondition sqlCondition, Class<D> c) throws MysqlConveyerException {
         ObjectUtils.validateObject(sqlCondition);
 
-        Pair<String, Map<Integer, String>> pair = sqlCondition.conditionSql();
-        StringBuilder builder = new StringBuilder();
-        builder.append("select ");
-        builder.append(Bean2SqlUtils.getSelectFieldsStringFast(c));
-        builder.append(" from ");
-        builder.append(this.getTable());
-        if (StringUtils.isNotEmpty(pair.getLeft())) {
-            builder.append(" where ");
-            builder.append(pair.getLeft());
-        }
-
-        String sql = builder.toString();
-        log.info("queryByCondition, sql = {}, values = {}", sql, pair.getRight());
-        return druidSqlSession.select(sql, pair.getRight(), c);
+        Pair<String, Map<Integer, String>> pair = SqlMaker.makeQueryByConditionSql(this.getTable(), sqlCondition, c);
+        log.info("queryByCondition, sql = {}, values = {}", pair.getLeft(), pair.getRight());
+        return druidSqlSession.select(pair.getLeft(), pair.getRight(), c);
     }
 
     @Override
@@ -141,16 +111,16 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
         ObjectUtils.validateObject(sqlCondition);
         ObjectUtils.validateObject(pageContext);
 
-        Pair<Pair<String, String>, Map<Integer, String>> pair = this.makeQueryByPageSql(sqlCondition, pageContext);
+        Pair<Pair<String, String>, Map<Integer, String>> pair = SqlMaker.makeQueryByPageSql(this.getTable(), sqlCondition, pageContext, c);
+        String countSql = pair.getLeft().getLeft();
+        String pageSql = pair.getLeft().getRight();
 
         // total count
-        String countSql = "select count(id) " + pair.getLeft().getLeft();
         log.info("queryByPage, count sql = {}, values = {}", countSql, pair.getRight());
         int totalCount = druidSqlSession.getCount(countSql, pair.getRight());
         int totalPage = totalCount / pageContext.getPageSize() + (totalCount % pageContext.getPageSize() > 0 ? 1 : 0);
 
         // page data
-        String pageSql = "select " + Bean2SqlUtils.getSelectFieldsStringFast(c) + " " + pair.getLeft().getRight();
         log.info("queryByPage, page sql = {}, values = {}", pageSql, pair.getRight());
         Collection<D> rows = druidSqlSession.select(pageSql, pair.getRight(), c);
 
@@ -166,16 +136,8 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
 
     protected SqlCondition makeAndCondition(D condition, SqlCondition sqlCondition) {
         EqualCondition equalCondition = SqlConditionMaker.equalCondition(condition);
-        AndCondition andCondition = new AndCondition();
+        AndCondition andCondition = SqlConditionMaker.andCondition();
         andCondition.add(equalCondition).add(sqlCondition);
         return andCondition;
-    }
-
-    protected Pair<Pair<String, String>, Map<Integer, String>> makeQueryByPageSql(SqlCondition sqlCondition, PageContext pageContext) {
-        Pair<String, Map<Integer, String>> pair = sqlCondition.conditionSql();
-        int beginOffset = (pageContext.getCurrPage() - 1) * pageContext.getPageSize();
-        String countSql = "from " + this.getTable() + (StringUtils.isNotEmpty(pair.getLeft()) ? " where " : "") + pair.getLeft();
-        String pageSql = countSql + " limit " + beginOffset + "," + pageContext.getPageSize();
-        return Pair.of(Pair.of(countSql, pageSql), pair.getRight());
     }
 }

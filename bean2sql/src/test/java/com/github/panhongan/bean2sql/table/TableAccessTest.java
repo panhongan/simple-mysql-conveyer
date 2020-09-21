@@ -208,7 +208,7 @@ public class TableAccessTest extends SpringTest {
 
         SqlCondition sqlCondition = tableAccess.makeAndCondition(obj, SqlConditionMaker.equalCondition(obj1));
         Pair<String, Map<Integer, String>> pair = sqlCondition.conditionSql();
-        assert(pair.getKey().contains("name") && pair.getKey().contains("age"));
+        assert(pair.getLeft().contains("name") && pair.getLeft().contains("age"));
         assert(pair.getRight().size() == 2);
     }
 
