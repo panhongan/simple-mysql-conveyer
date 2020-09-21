@@ -27,8 +27,6 @@ public class TransactionManagerEx {
 
     private static Map<Thread, TransactionStatus> transactionStatusMap = new ConcurrentHashMap<>();
 
-    private static Map<Thread, AtomicInteger> threadCounter = new ConcurrentHashMap<>();
-
     public <T> T execute(Callable<T> callable) {
         return transactionTemplate.execute(transactionStatus -> {
             Thread currentThread = Thread.currentThread();
