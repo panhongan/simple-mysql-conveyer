@@ -1,6 +1,6 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
-import com.github.panhongan.bean2sql.condition.ConditionOperator;
+import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
 
 /**
  * 示例：
@@ -16,7 +16,7 @@ import com.github.panhongan.bean2sql.condition.ConditionOperator;
 public class LessOrEqualCondition<T> extends AbstractComparableCondition<T> {
 
     @Override
-    public ConditionOperator getConditionOperator() {
-        return ConditionOperator.LESS_OR_EQUAL;
+    public SqlConditionOperator getConditionOperator() {
+        return SqlConditionOperator.LESS_OR_EQUAL;
     }
 }

@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 
 @Getter
-public enum ConditionOperator {
+public enum SqlConditionOperator {
     EQUAL("01", "=", "等于"),
     NOT_EQUAL("02", "!=", "不等于"),
     LESS("03", "<", "小于"),
@@ -31,18 +31,18 @@ public enum ConditionOperator {
     private final String operator;
     private final String desc;
 
-    ConditionOperator(String code, String operator, String desc) {
+    SqlConditionOperator(String code, String operator, String desc) {
         this.code = code;
         this.operator = operator;
         this.desc = desc;
     }
 
-    public static ConditionOperator of(String code) {
+    public static SqlConditionOperator of(String code) {
         if (StringUtils.isEmpty(code)) {
             return null;
         }
 
-        for (ConditionOperator value : ConditionOperator.values()) {
+        for (SqlConditionOperator value : SqlConditionOperator.values()) {
             if (value.getCode().equals(code)) {
                 return value;
             }
@@ -51,23 +51,23 @@ public enum ConditionOperator {
         return null;
     }
 
-    public static boolean isComparableType(ConditionOperator conditionOperator) {
-        return (ConditionOperator.LESS == conditionOperator ||
-            ConditionOperator.LESS_OR_EQUAL == conditionOperator ||
-            ConditionOperator.GREATER == conditionOperator||
-            ConditionOperator.GREATER_OR_EQUAL == conditionOperator);
+    public static boolean isComparableType(SqlConditionOperator sqlConditionOperator) {
+        return (SqlConditionOperator.LESS == sqlConditionOperator ||
+            SqlConditionOperator.LESS_OR_EQUAL == sqlConditionOperator ||
+            SqlConditionOperator.GREATER == sqlConditionOperator ||
+            SqlConditionOperator.GREATER_OR_EQUAL == sqlConditionOperator);
     }
 
-    public static boolean isNotComparableType(ConditionOperator conditionOperator) {
-        return !isComparableType(conditionOperator);
+    public static boolean isNotComparableType(SqlConditionOperator sqlConditionOperator) {
+        return !isComparableType(sqlConditionOperator);
     }
 
-    public static boolean isEqualType(ConditionOperator conditionOperator) {
-        return (ConditionOperator.EQUAL == conditionOperator ||
-            ConditionOperator.NOT_EQUAL == conditionOperator);
+    public static boolean isEqualType(SqlConditionOperator sqlConditionOperator) {
+        return (SqlConditionOperator.EQUAL == sqlConditionOperator ||
+            SqlConditionOperator.NOT_EQUAL == sqlConditionOperator);
     }
 
-    public static boolean isNotEqualType(ConditionOperator conditionOperator) {
-        return !isEqualType(conditionOperator);
+    public static boolean isNotEqualType(SqlConditionOperator sqlConditionOperator) {
+        return !isEqualType(sqlConditionOperator);
     }
 }

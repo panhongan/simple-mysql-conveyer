@@ -2,7 +2,6 @@ package com.github.panhongan.bean2sql.condition;
 
 import com.github.panhongan.bean2sql.TestObj;
 import com.github.panhongan.commons.MysqlConveyerException;
-import lombok.ToString;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
@@ -19,7 +18,7 @@ public class Bean2SqlUtilsTest {
 
     @Test
     public void testGetEqualTypeConditionSql_ConditionObjectIsNull() {
-        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getEqualTypeConditionSql(null, ConditionOperator.EQUAL);
+        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getEqualTypeConditionSql(null, SqlConditionOperator.EQUAL);
         assert(pair.getLeft().isEmpty());
     }
 
@@ -31,7 +30,7 @@ public class Bean2SqlUtilsTest {
 
     @Test
     public void testGetEqualTypeConditionSql_ConditionObjectIsNotSet() {
-        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getEqualTypeConditionSql(new TestObj(), ConditionOperator.EQUAL);
+        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getEqualTypeConditionSql(new TestObj(), SqlConditionOperator.EQUAL);
         assert(pair.getLeft().isEmpty());
     }
 
@@ -41,7 +40,7 @@ public class Bean2SqlUtilsTest {
         obj.setAge(1);
         obj.setName("hello");
 
-        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getEqualTypeConditionSql(obj, ConditionOperator.EQUAL);
+        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getEqualTypeConditionSql(obj, SqlConditionOperator.EQUAL);
         assert(!pair.getLeft().isEmpty());
         assert(pair.getLeft().equals("(name=? and age=?)"));
         assert(pair.getRight().size() == 2);
@@ -49,7 +48,7 @@ public class Bean2SqlUtilsTest {
 
     @Test
     public void testGetComparableConditionSql_ConditionObjectIsNull() {
-        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getComparableConditionSql(null, ConditionOperator.EQUAL);
+        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getComparableConditionSql(null, SqlConditionOperator.EQUAL);
         assert(pair.getLeft().isEmpty());
     }
 
@@ -61,7 +60,7 @@ public class Bean2SqlUtilsTest {
 
     @Test
     public void testGetComparableConditionSql_ConditionObjectIsNotSet() {
-        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getComparableConditionSql(new TestObj(), ConditionOperator.LESS);
+        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getComparableConditionSql(new TestObj(), SqlConditionOperator.LESS);
         assert(pair.getLeft().isEmpty());
     }
 
@@ -71,7 +70,7 @@ public class Bean2SqlUtilsTest {
         obj.setAge(1);
         obj.setName("hello");
 
-        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getComparableConditionSql(obj, ConditionOperator.LESS);
+        Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getComparableConditionSql(obj, SqlConditionOperator.LESS);
         assert(!pair.getLeft().isEmpty());
         assert(pair.getLeft().equals("(age<?)"));
         assert(pair.getRight().size() == 1);

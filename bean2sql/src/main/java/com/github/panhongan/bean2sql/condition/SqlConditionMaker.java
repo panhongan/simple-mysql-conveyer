@@ -17,7 +17,7 @@ import com.github.panhongan.bean2sql.condition.sql.OrCondition;
  * @version 1.0
  */
 
-public class ConditionMaker {
+public class SqlConditionMaker {
 
     public static <T> EqualCondition<T> equalCondition(T obj) {
         EqualCondition<T> condition = new EqualCondition<>();

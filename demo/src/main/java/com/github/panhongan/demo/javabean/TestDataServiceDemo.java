@@ -1,6 +1,6 @@
 package com.github.panhongan.demo.javabean;
 
-import com.github.panhongan.bean2sql.condition.ConditionMaker;
+import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
 import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
 import com.github.panhongan.conveyer.service.req.AddReq;
 import com.github.panhongan.conveyer.service.req.ModifyReq;
@@ -90,7 +90,7 @@ public class TestDataServiceDemo {
         Person likeObj = new Person();
         likeObj.setName("pha");
         likeObj.setBirthday(new Date(2020 - 1900, 8, 15));
-        LikeCondition likeCondition = ConditionMaker.likeCondition(likeObj);
+        LikeCondition likeCondition = SqlConditionMaker.likeCondition(likeObj);
 
         QueryByConditionReq<Person> request = new QueryByConditionReq<>();
         request.setBizObjCondition(condition);

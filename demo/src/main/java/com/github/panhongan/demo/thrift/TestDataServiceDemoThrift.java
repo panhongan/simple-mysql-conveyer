@@ -1,6 +1,6 @@
 package com.github.panhongan.demo.thrift;
 
-import com.github.panhongan.bean2sql.condition.ConditionMaker;
+import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
 import com.github.panhongan.bean2sql.condition.sql.LikeCondition;
 import com.github.panhongan.conveyer.service.req.AddReq;
 import com.github.panhongan.conveyer.service.req.ModifyReq;
@@ -95,7 +95,7 @@ public class TestDataServiceDemoThrift {
         likeObj.setBirthday(TimeUtilsThrift.date2timestamp(new Date(2020 - 1900, 8, 16)));
         PersonDO personDO = personConverterThrift.bo2do(likeObj);
 
-        LikeCondition likeCondition = ConditionMaker.likeCondition(personDO);
+        LikeCondition likeCondition = SqlConditionMaker.likeCondition(personDO);
 
         QueryByConditionReq<Person> request = new QueryByConditionReq<>();
         request.setBizObjCondition(condition);

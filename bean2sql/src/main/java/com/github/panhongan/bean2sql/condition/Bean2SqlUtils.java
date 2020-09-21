@@ -36,8 +36,8 @@ public class Bean2SqlUtils {
 
     private static Map<Class, String> selectFieldsStringMap = new ConcurrentHashMap<>();
 
-    public static <T> Pair<String, Map<Integer, String>> getEqualTypeConditionSql(T conditionObj, ConditionOperator conditionOperator) {
-        if (conditionObj == null || ConditionOperator.isNotEqualType(conditionOperator)) {
+    public static <T> Pair<String, Map<Integer, String>> getEqualTypeConditionSql(T conditionObj, SqlConditionOperator sqlConditionOperator) {
+        if (conditionObj == null || SqlConditionOperator.isNotEqualType(sqlConditionOperator)) {
             return SqlCondition.EMPTY_CONDITION_SQL;
         }
 
@@ -59,7 +59,7 @@ public class Bean2SqlUtils {
                 }
 
                 conditionSql.append(NamingUtils.camel2Hung(field.getName()));
-                conditionSql.append(conditionOperator.getOperator());
+                conditionSql.append(sqlConditionOperator.getOperator());
                 conditionSql.append(PLACE_HOLDER);
                 conditionSql.append(AND_STR);
 
@@ -86,8 +86,8 @@ public class Bean2SqlUtils {
         return Pair.of(conditionSql.toString(), values);
     }
 
-    public static <T> Pair<String, Map<Integer, String>> getComparableConditionSql(T conditionObj, ConditionOperator conditionOperator) {
-        if (conditionObj == null || ConditionOperator.isNotComparableType(conditionOperator)) {
+    public static <T> Pair<String, Map<Integer, String>> getComparableConditionSql(T conditionObj, SqlConditionOperator sqlConditionOperator) {
+        if (conditionObj == null || SqlConditionOperator.isNotComparableType(sqlConditionOperator)) {
             return SqlCondition.EMPTY_CONDITION_SQL;
         }
 
@@ -109,7 +109,7 @@ public class Bean2SqlUtils {
                 }
 
                 conditionSql.append(NamingUtils.camel2Hung(field.getName()));
-                conditionSql.append(conditionOperator.getOperator());
+                conditionSql.append(sqlConditionOperator.getOperator());
                 conditionSql.append(PLACE_HOLDER);
                 conditionSql.append(AND_STR);
 

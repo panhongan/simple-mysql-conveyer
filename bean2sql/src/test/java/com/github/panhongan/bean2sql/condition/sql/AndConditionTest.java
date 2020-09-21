@@ -1,6 +1,6 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
-import com.github.panhongan.bean2sql.condition.ConditionMaker;
+import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
 import com.github.panhongan.bean2sql.TestObj;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
@@ -28,10 +28,10 @@ public class AndConditionTest {
 
     @Test
     public void testConditionSql_Ok() {
-        LessCondition lessCondition = ConditionMaker.lessCondition(testObj1);
-        EqualCondition equalCondition = ConditionMaker.equalCondition(testObj2);
+        LessCondition lessCondition = SqlConditionMaker.lessCondition(testObj1);
+        EqualCondition equalCondition = SqlConditionMaker.equalCondition(testObj2);
 
-        AndCondition andCondition = ConditionMaker.andCondition();
+        AndCondition andCondition = SqlConditionMaker.andCondition();
         andCondition.add(lessCondition).add(equalCondition);
 
         Pair<String, Map<Integer, String>> pair = andCondition.conditionSql();

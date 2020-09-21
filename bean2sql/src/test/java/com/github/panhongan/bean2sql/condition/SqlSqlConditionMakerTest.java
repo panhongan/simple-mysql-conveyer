@@ -18,7 +18,7 @@ import java.util.Map;
  * @version 1.0
  */
 
-public class ConditionMakerTest {
+public class SqlSqlConditionMakerTest {
 
     @Test
     public void testEqualCondition_Ok() {
@@ -26,7 +26,7 @@ public class ConditionMakerTest {
         testObj.setName("hello");
         testObj.setAge(100);
 
-        Pair<String, Map<Integer, String>> pair = ConditionMaker.equalCondition(testObj).conditionSql();
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.equalCondition(testObj).conditionSql();
         assert(pair.getLeft().equals("(name=? and age=?)"));
         assert(pair.getRight().size() == 2);
     }
@@ -37,7 +37,7 @@ public class ConditionMakerTest {
         testObj.setName("hello");
         testObj.setAge(100);
 
-        Pair<String, Map<Integer, String>> pair = ConditionMaker.notEqualCondition(testObj).conditionSql();
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.notEqualCondition(testObj).conditionSql();
         assert(pair.getLeft().equals("(name!=? and age!=?)"));
         assert(pair.getRight().size() == 2);
     }
@@ -48,7 +48,7 @@ public class ConditionMakerTest {
         testObj.setName("hello");
         testObj.setAge(100);
 
-        Pair<String, Map<Integer, String>> pair = ConditionMaker.greaterCondition(testObj).conditionSql();
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.greaterCondition(testObj).conditionSql();
         assert(pair.getLeft().equals("(age>?)"));
         assert(pair.getRight().size() == 1);
     }
@@ -59,7 +59,7 @@ public class ConditionMakerTest {
         testObj.setName("hello");
         testObj.setAge(100);
 
-        Pair<String, Map<Integer, String>> pair = ConditionMaker.greaterOrEqualCondition(testObj).conditionSql();
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.greaterOrEqualCondition(testObj).conditionSql();
         assert(pair.getLeft().equals("(age>=?)"));
         assert(pair.getRight().size() == 1);
     }
@@ -70,7 +70,7 @@ public class ConditionMakerTest {
         testObj.setName("hello");
         testObj.setAge(100);
 
-        Pair<String, Map<Integer, String>> pair = ConditionMaker.lessCondition(testObj).conditionSql();
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.lessCondition(testObj).conditionSql();
         assert(pair.getLeft().equals("(age<?)"));
         assert(pair.getRight().size() == 1);
     }
@@ -81,7 +81,7 @@ public class ConditionMakerTest {
         testObj.setName("hello");
         testObj.setAge(100);
 
-        Pair<String, Map<Integer, String>> pair = ConditionMaker.lessOrEqualCondition(testObj).conditionSql();
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.lessOrEqualCondition(testObj).conditionSql();
         assert(pair.getLeft().equals("(age<=?)"));
         assert(pair.getRight().size() == 1);
     }
@@ -93,7 +93,7 @@ public class ConditionMakerTest {
         testObj.setAge(100);
         testObj.setDate(new Date());
 
-        Pair<String, Map<Integer, String>> pair = ConditionMaker.likeCondition(testObj).conditionSql();
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.likeCondition(testObj).conditionSql();
         assert(pair.getLeft().equals("(name like ? and date like ?)"));
         assert(pair.getRight().size() == 2);
     }
@@ -106,10 +106,10 @@ public class ConditionMakerTest {
         TestObj testObj2 = new TestObj();
         testObj2.setName("hello");
 
-        LessCondition lessCondition = ConditionMaker.lessCondition(testObj1);
-        EqualCondition equalCondition = ConditionMaker.equalCondition(testObj2);
+        LessCondition lessCondition = SqlConditionMaker.lessCondition(testObj1);
+        EqualCondition equalCondition = SqlConditionMaker.equalCondition(testObj2);
 
-        AndCondition andCondition = ConditionMaker.andCondition();
+        AndCondition andCondition = SqlConditionMaker.andCondition();
         andCondition.add(lessCondition).add(equalCondition);
 
         Pair<String, Map<Integer, String>> pair = andCondition.conditionSql();
@@ -125,10 +125,10 @@ public class ConditionMakerTest {
         TestObj testObj2 = new TestObj();
         testObj2.setName("hello");
 
-        LessCondition lessCondition = ConditionMaker.lessCondition(testObj1);
-        EqualCondition equalCondition = ConditionMaker.equalCondition(testObj2);
+        LessCondition lessCondition = SqlConditionMaker.lessCondition(testObj1);
+        EqualCondition equalCondition = SqlConditionMaker.equalCondition(testObj2);
 
-        OrCondition andCondition = ConditionMaker.orCondition();
+        OrCondition andCondition = SqlConditionMaker.orCondition();
         andCondition.add(lessCondition).add(equalCondition);
 
         Pair<String, Map<Integer, String>> pair = andCondition.conditionSql();
@@ -138,7 +138,7 @@ public class ConditionMakerTest {
 
     @Test
     public void testBetweenAndCondition_Ok() {
-        BetweenAndCondition betweenAndCondition = ConditionMaker.betweenAndCondition("create_date", new Date(), new Date());
+        BetweenAndCondition betweenAndCondition = SqlConditionMaker.betweenAndCondition("create_date", new Date(), new Date());
         Pair<String, Map<Integer, String>> pair = betweenAndCondition.conditionSql();
         assert(pair.getLeft().equals("(create_date between ? and ?)"));
         assert(pair.getRight().size() == 2);

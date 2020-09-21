@@ -1,7 +1,6 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
-import com.github.panhongan.bean2sql.condition.ConditionOperator;
-import lombok.Builder;
+import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
 
 /**
  * 示例：
@@ -20,7 +19,7 @@ import lombok.Builder;
 public class GreaterCondition<T> extends AbstractComparableCondition<T> {
 
     @Override
-    public ConditionOperator getConditionOperator() {
-        return ConditionOperator.GREATER;
+    public SqlConditionOperator getConditionOperator() {
+        return SqlConditionOperator.GREATER;
     }
 }

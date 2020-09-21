@@ -1,6 +1,6 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
-import com.github.panhongan.bean2sql.condition.ConditionOperator;
+import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collections;
@@ -16,7 +16,7 @@ public interface SqlCondition {
 
     Pair<String, Map<Integer, String>> EMPTY_CONDITION_SQL = Pair.of("", Collections.emptyMap());
 
-    ConditionOperator getConditionOperator();
+    SqlConditionOperator getConditionOperator();
 
     /**
      * Pair.left : PreparedStatement sql

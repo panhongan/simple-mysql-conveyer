@@ -1,7 +1,7 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
 import com.github.panhongan.bean2sql.condition.Bean2SqlUtils;
-import com.github.panhongan.bean2sql.condition.ConditionOperator;
+import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,8 +34,8 @@ public class NotEqualCondition<T> implements SqlCondition {
     private T obj;
 
     @Override
-    public ConditionOperator getConditionOperator() {
-        return ConditionOperator.NOT_EQUAL;
+    public SqlConditionOperator getConditionOperator() {
+        return SqlConditionOperator.NOT_EQUAL;
     }
 
     @Override

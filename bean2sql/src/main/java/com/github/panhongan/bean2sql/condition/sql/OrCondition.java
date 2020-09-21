@@ -1,6 +1,6 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
-import com.github.panhongan.bean2sql.condition.ConditionOperator;
+import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
 
 /**
  * @author panhongan
@@ -11,7 +11,7 @@ import com.github.panhongan.bean2sql.condition.ConditionOperator;
 public class OrCondition extends AbstractCombineCondition {
 
     @Override
-    public ConditionOperator getConditionOperator() {
-        return ConditionOperator.OR;
+    public SqlConditionOperator getConditionOperator() {
+        return SqlConditionOperator.OR;
     }
 }

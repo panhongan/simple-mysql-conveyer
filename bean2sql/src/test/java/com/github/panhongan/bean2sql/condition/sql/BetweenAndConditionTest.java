@@ -1,6 +1,6 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
-import com.github.panhongan.bean2sql.condition.ConditionMaker;
+import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class BetweenAndConditionTest {
 
     @Test
     public void testConditionSql_Ok() {
-        BetweenAndCondition betweenAndCondition = ConditionMaker.betweenAndCondition("create_date", new Date(), new Date());
+        BetweenAndCondition betweenAndCondition = SqlConditionMaker.betweenAndCondition("create_date", new Date(), new Date());
         Pair<String, Map<Integer, String>> pair = betweenAndCondition.conditionSql();
         assert(pair.getLeft().equals("(create_date between ? and ?)"));
         assert(pair.getRight().size() == 2);

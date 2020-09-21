@@ -1,6 +1,6 @@
 package com.github.panhongan.bean2sql.condition.sql;
 
-import com.github.panhongan.bean2sql.condition.ConditionMaker;
+import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
 import com.github.panhongan.bean2sql.TestObj;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Before;
@@ -26,7 +26,7 @@ public class EqualConditionTest {
 
     @Test
     public void testConditionSql_Ok() {
-        Pair<String, Map<Integer, String>> pair = ConditionMaker.equalCondition(testObj).conditionSql();
+        Pair<String, Map<Integer, String>> pair = SqlConditionMaker.equalCondition(testObj).conditionSql();
         assert(pair.getLeft().equals("(name=? and age=?)"));
         assert(pair.getRight().size() == 2);
     }
