@@ -37,20 +37,6 @@ public enum SqlConditionOperator {
         this.desc = desc;
     }
 
-    public static SqlConditionOperator of(String code) {
-        if (StringUtils.isEmpty(code)) {
-            return null;
-        }
-
-        for (SqlConditionOperator value : SqlConditionOperator.values()) {
-            if (value.getCode().equals(code)) {
-                return value;
-            }
-        }
-
-        return null;
-    }
-
     public static boolean isComparableType(SqlConditionOperator sqlConditionOperator) {
         return (SqlConditionOperator.LESS == sqlConditionOperator ||
             SqlConditionOperator.LESS_OR_EQUAL == sqlConditionOperator ||

@@ -27,7 +27,7 @@ import java.util.Map;
 public abstract class AbstractTableAccess<D> implements TableAccess<D> {
 
     @Autowired
-    private DruidSqlSession druidSqlSession;
+    private SqlExecutor sqlExecutor;
 
     /**
      * 数据库表
@@ -40,7 +40,7 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
     public long getMaxRowId(SqlCondition sqlCondition) throws MysqlConveyerException {
         Pair<String, Map<Integer, String>> pair = SqlMaker.makeMaxRowIdSql(this.getTable(), sqlCondition);
         log.info("getMaxRowId, sql = {}, values = {}", pair.getLeft(), pair.getRight());
-        return druidSqlSession.getMaxRowId(pair.getLeft(), pair.getRight());
+        return sqlExecutor.getMaxRowId(pair.getLeft(), pair.getRight());
     }
 
     @Override
@@ -49,14 +49,14 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
 
         Pair<String, Map<Integer, String>> pair = SqlMaker.makeInsertSql(this.getTable(), record);
         log.info("insert, sql = {}, values = {}", pair.getLeft(), pair.getRight());
-        return druidSqlSession.insert(pair.getLeft(), pair.getRight()).get(0);
+        return sqlExecutor.insert(pair.getLeft(), pair.getRight()).get(0);
     }
 
     @Override
     public int deleteById(long id) throws MysqlConveyerException {
         Pair<String, Map<Integer, String>> pair = SqlMaker.makeDeleteByIdSql(this.getTable(), id);
         log.info("deleteById, sql = {}, values = {}", pair.getLeft(), pair.getRight());
-        return druidSqlSession.update(pair.getLeft(), pair.getRight());
+        return sqlExecutor.update(pair.getLeft(), pair.getRight());
     }
 
     @Override
@@ -65,7 +65,7 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
 
         Pair<String, Map<Integer, String>> pair = SqlMaker.makeUpdateSql(this.getTable(), id, newRecord);
         log.info("update, sql = {}, values = {}", pair.getLeft(), pair.getRight());
-        return druidSqlSession.update(pair.getLeft(), pair.getRight());
+        return sqlExecutor.update(pair.getLeft(), pair.getRight());
     }
 
     @Override
@@ -88,7 +88,7 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
 
         Pair<String, Map<Integer, String>> pair = SqlMaker.makeQueryByConditionSql(this.getTable(), sqlCondition, c);
         log.info("queryByCondition, sql = {}, values = {}", pair.getLeft(), pair.getRight());
-        return druidSqlSession.select(pair.getLeft(), pair.getRight(), c);
+        return sqlExecutor.select(pair.getLeft(), pair.getRight(), c);
     }
 
     @Override
@@ -117,12 +117,12 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
 
         // total count
         log.info("queryByPage, count sql = {}, values = {}", countSql, pair.getRight());
-        int totalCount = druidSqlSession.getCount(countSql, pair.getRight());
+        int totalCount = sqlExecutor.getCount(countSql, pair.getRight());
         int totalPage = totalCount / pageContext.getPageSize() + (totalCount % pageContext.getPageSize() > 0 ? 1 : 0);
 
         // page data
         log.info("queryByPage, page sql = {}, values = {}", pageSql, pair.getRight());
-        Collection<D> rows = druidSqlSession.select(pageSql, pair.getRight(), c);
+        Collection<D> rows = sqlExecutor.select(pageSql, pair.getRight(), c);
 
         // page result
         PageResult<D> pageResult = new PageResult<>();

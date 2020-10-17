@@ -28,11 +28,11 @@ public class TableAccessTest extends SpringTest {
     private MyTableAccess tableAccess = new MyTableAccess();
 
     @Mock
-    private DruidSqlSession druidSqlSession;
+    private SqlExecutor sqlExecutor;
 
     @Override
     protected void inject() {
-        InjectUtils.inject(tableAccess, druidSqlSession);
+        InjectUtils.inject(tableAccess, sqlExecutor);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class TableAccessTest extends SpringTest {
 
         EqualCondition condition = SqlConditionMaker.equalCondition(obj);
 
-        Mockito.when(druidSqlSession.getMaxRowId(Mockito.anyString(), Mockito.anyMap())).thenReturn(1L);
+        Mockito.when(sqlExecutor.getMaxRowId(Mockito.anyString(), Mockito.anyMap())).thenReturn(1L);
         assert(tableAccess.getMaxRowId(condition) == 1L);
     }
 
@@ -64,13 +64,13 @@ public class TableAccessTest extends SpringTest {
         obj.setHeight(1.0f);
         obj.setWeight(2.0d);
 
-        Mockito.when(druidSqlSession.insert(Mockito.anyString(), Mockito.anyMap())).thenReturn(Collections.singletonList(1L));
+        Mockito.when(sqlExecutor.insert(Mockito.anyString(), Mockito.anyMap())).thenReturn(Collections.singletonList(1L));
         assert(tableAccess.insert(obj) == 1L);
     }
 
     @Test
     public void testDeleteById_Ok() {
-        Mockito.when(druidSqlSession.update(Mockito.anyString(), Mockito.anyMap())).thenReturn(1);
+        Mockito.when(sqlExecutor.update(Mockito.anyString(), Mockito.anyMap())).thenReturn(1);
         assert(tableAccess.deleteById(1L) == 1);
     }
 
@@ -93,7 +93,7 @@ public class TableAccessTest extends SpringTest {
         obj.setHeight(1.0f);
         obj.setWeight(2.0d);
 
-        Mockito.when(druidSqlSession.update(Mockito.anyString(), Mockito.anyMap())).thenReturn(1);
+        Mockito.when(sqlExecutor.update(Mockito.anyString(), Mockito.anyMap())).thenReturn(1);
         assert(tableAccess.update(1, obj) == 1);
     }
 
@@ -106,7 +106,7 @@ public class TableAccessTest extends SpringTest {
     public void testQueryByCondition_ObjectConditionIsOk() {
         TestObj obj = new TestObj();
         obj.setName("hello");
-        Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
+        Mockito.when(sqlExecutor.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
         assert(tableAccess.queryByCondition(obj).isEmpty());
     }
 
@@ -123,7 +123,7 @@ public class TableAccessTest extends SpringTest {
         TestObj obj1 = new TestObj();
         obj1.setAge(10);
 
-        Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
+        Mockito.when(sqlExecutor.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
         assert(tableAccess.queryByCondition(obj, SqlConditionMaker.equalCondition(obj1)).isEmpty());
     }
 
@@ -137,7 +137,7 @@ public class TableAccessTest extends SpringTest {
         TestObj obj = new TestObj();
         obj.setName("hello");
 
-        Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
+        Mockito.when(sqlExecutor.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
         assert(tableAccess.queryByCondition(SqlConditionMaker.equalCondition(obj), TestObj.class).isEmpty());
     }
 
@@ -155,7 +155,7 @@ public class TableAccessTest extends SpringTest {
         pageContext.setCurrPage(1);
         pageContext.setPageSize(10);
 
-        Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
+        Mockito.when(sqlExecutor.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
         assert(tableAccess.queryByPage(obj, pageContext).isEmpty());
     }
 
@@ -176,7 +176,7 @@ public class TableAccessTest extends SpringTest {
         pageContext.setCurrPage(1);
         pageContext.setPageSize(10);
 
-        Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
+        Mockito.when(sqlExecutor.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
         assert(tableAccess.queryByPage(obj, SqlConditionMaker.equalCondition(obj1), pageContext).isEmpty());
     }
 
@@ -194,7 +194,7 @@ public class TableAccessTest extends SpringTest {
         pageContext.setCurrPage(1);
         pageContext.setPageSize(10);
 
-        Mockito.when(druidSqlSession.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
+        Mockito.when(sqlExecutor.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
         assert(tableAccess.queryByPage(SqlConditionMaker.equalCondition(obj), pageContext, TestObj.class).isEmpty());
     }
 

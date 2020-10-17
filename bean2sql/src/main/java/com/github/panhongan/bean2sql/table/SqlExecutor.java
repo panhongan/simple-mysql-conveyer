@@ -36,7 +36,7 @@ import java.util.Map;
 
 @Service
 @Slf4j
-public class DruidSqlSession {
+public class SqlExecutor {
 
     private static Map<String, ThrowableFunction<Pair<ResultSet, String>, Object, Throwable>> mapFunc = new HashMap<>();
 
@@ -86,17 +86,16 @@ public class DruidSqlSession {
     }
 
     public List<Long> insert(String sql, Map<Integer, String> values) {
-        Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
         try {
             TransactionStatus transactionStatus = transactionManagerEx.getCurrentTransactionStatus();
-            Preconditions.checkNotNull(transactionStatus, "insert() operation not triggered by transaction");
+            Preconditions.checkNotNull(transactionStatus, "insert() operation not wrapped by transaction");
 
             // connection必须是来自事务
             JdbcTransactionObjectSupport txobj = (JdbcTransactionObjectSupport) ((DefaultTransactionStatus) transactionStatus).getTransaction();
-            conn = txobj.getConnectionHolder().getConnection();
+            Connection conn = txobj.getConnectionHolder().getConnection();
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             for (Map.Entry<Integer, String> entry : values.entrySet()) {
                 ps.setString(entry.getKey(), entry.getValue());
@@ -121,7 +120,6 @@ public class DruidSqlSession {
     }
 
     public int update(String sql, Map<Integer, String> values) {
-        Connection conn = null;
         PreparedStatement ps = null;
 
         try {
@@ -130,7 +128,7 @@ public class DruidSqlSession {
 
             // connection必须是来自事务
             JdbcTransactionObjectSupport txobj = (JdbcTransactionObjectSupport) ((DefaultTransactionStatus) transactionStatus).getTransaction();
-            conn = txobj.getConnectionHolder().getConnection();
+            Connection conn = txobj.getConnectionHolder().getConnection();
             ps = conn.prepareStatement(sql);
             for (Map.Entry<Integer, String> entry : values.entrySet()) {
                 ps.setString(entry.getKey(), entry.getValue());
