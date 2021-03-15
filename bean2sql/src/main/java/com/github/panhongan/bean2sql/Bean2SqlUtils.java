@@ -114,7 +114,11 @@ public class Bean2SqlUtils {
                 conditionSql.append(PLACE_HOLDER);
                 conditionSql.append(AND_STR);
 
-                values.put(index++, value.toString());
+                if (type.equals("Date")) {
+                    values.put(index++, DateUtils.format((Date) value, DateUtils.SETTLE_PATTERN));
+                } else {
+                    values.put(index++, value.toString());
+                }
             }
         } catch (Exception e) {
             throw new MysqlConveyerException(e);

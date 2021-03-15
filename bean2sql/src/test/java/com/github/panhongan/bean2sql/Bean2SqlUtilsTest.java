@@ -4,6 +4,7 @@ import com.github.panhongan.bean2sql.Bean2SqlUtils;
 import com.github.panhongan.bean2sql.TestObj;
 import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
 import com.github.panhongan.commons.MysqlConveyerException;
+import com.github.panhongan.utils.time.DateUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
@@ -71,11 +72,12 @@ public class Bean2SqlUtilsTest {
         TestObj obj = new TestObj();
         obj.setAge(1);
         obj.setName("hello");
+        obj.setDate(DateUtils.plusDaysFromNow(-1));
 
         Pair<String, Map<Integer, String>> pair = Bean2SqlUtils.getComparableConditionSql(obj, SqlConditionOperator.LESS);
         assert(!pair.getLeft().isEmpty());
-        assert(pair.getLeft().equals("(age<?)"));
-        assert(pair.getRight().size() == 1);
+        assert(pair.getLeft().equals("(age<? and date<?)"));
+        assert(pair.getRight().size() == 2);
     }
 
     @Test
