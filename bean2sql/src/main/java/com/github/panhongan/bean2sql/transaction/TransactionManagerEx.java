@@ -10,7 +10,6 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author panhongan
