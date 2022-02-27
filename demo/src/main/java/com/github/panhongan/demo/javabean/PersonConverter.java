@@ -25,6 +25,7 @@ public class PersonConverter implements Converter<Person, PersonDO> {
         Person bizObj = new Person();
         bizObj.setName(doObj.getName());
         bizObj.setBirthday(doObj.getBirthday());
+
         DbBase.assign(doObj, bizObj);
 
         return bizObj;
@@ -42,10 +43,5 @@ public class PersonConverter implements Converter<Person, PersonDO> {
         DbBase.assign(bizObj, doObj);
 
         return doObj;
-    }
-
-    @Override
-    public PersonDO emptyDO() {
-        return new PersonDO();
     }
 }

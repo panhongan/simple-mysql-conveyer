@@ -26,24 +26,21 @@ public class TestDataServiceDemo {
 
         personDataService = context.getBean(PersonDataService.class);
 
-        //add();
-        //modify();
-        //deleteById();
-        //queryById();
-        //queryByCondition();
-        queryByLikeCondition();
+        // add();
+        modify();
+        // deleteById();
+        // queryById();
+        // queryByCondition();
+        // queryByLikeCondition();
         //queryByPage();
     }
 
     public static void add() {
         Person person = new Person();
-        person.setName("pha1");
+        person.setName("pha5");
         person.setBirthday(new Date());
 
         AddReq<Person> request = new AddReq<>();
-        request.setCreatedBy("pha");
-        request.setDataType("person");
-        request.setEffectTime(null);
         request.setBizObj(person);
 
         long id = personDataService.add(request);
@@ -52,25 +49,22 @@ public class TestDataServiceDemo {
 
     public static void modify() {
         Person person = new Person();
-        person.setName("pha6");
+        person.setName("pha12");
         person.setBirthday(new Date());
 
         ModifyReq<Person> request = new ModifyReq<>();
-        request.setOriId(1L);
-        request.setUpdatedBy("pha6");
-        request.setDataType("person");
-        request.setEffectTime(null);
+        request.setOriId(5L);
         request.setNewBizObj(person);
 
         System.out.println(personDataService.modify(request));
     }
 
     public static void deleteById() {
-        System.out.println(personDataService.deleteById(1L));
+        System.out.println(personDataService.deleteById(2L));
     }
 
     public static void queryById() {
-        System.out.println(personDataService.queryById(6L));
+        System.out.println(personDataService.queryById(3L));
     }
 
     public static void queryByCondition() {
@@ -85,11 +79,10 @@ public class TestDataServiceDemo {
 
     public static void queryByLikeCondition() {
         Person condition = new Person();
-        //condition.setName("pha2");
+        condition.setName("pha2");
 
         Person likeObj = new Person();
         likeObj.setName("pha");
-        likeObj.setBirthday(new Date(2020 - 1900, 8, 15));
         LikeCondition likeCondition = SqlConditionMaker.likeCondition(likeObj);
 
         QueryByConditionReq<Person> request = new QueryByConditionReq<>();

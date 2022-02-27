@@ -46,8 +46,6 @@ public class TestDataServiceDemoThrift {
 
         AddReq<Person> request = new AddReq<>();
         request.setCreatedBy("pha3");
-        request.setDataType("person");
-        request.setEffectTime(null);
         request.setBizObj(person);
 
         long id = personDataServiceThrift.add(request);
@@ -62,8 +60,6 @@ public class TestDataServiceDemoThrift {
         ModifyReq<Person> request = new ModifyReq<>();
         request.setOriId(15L);
         request.setUpdatedBy("pha33");
-        request.setDataType("person");
-        request.setEffectTime(null);
         request.setNewBizObj(person);
 
         System.out.println(personDataServiceThrift.modify(request));

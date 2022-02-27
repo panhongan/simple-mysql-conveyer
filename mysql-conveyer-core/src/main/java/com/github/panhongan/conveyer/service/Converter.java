@@ -20,31 +20,29 @@ public interface Converter<B, D> {
 
     D bo2do(B bizObj);
 
-    D emptyDO();
+    default List<B> dos2bos(List<D> doObjList) {
+        List<B> bizObjList = new ArrayList<>();
 
-    default List<B> dos2bos(List<D> doObjs) {
-        List<B> bizObjs = new ArrayList<>();
-
-        if (CollectionUtils.isEmpty(doObjs)) {
-            return bizObjs;
+        if (CollectionUtils.isEmpty(doObjList)) {
+            return bizObjList;
         }
 
-        for (D doObj : doObjs) {
-            bizObjs.add(this.do2bo(doObj));
+        for (D doObj : doObjList) {
+            bizObjList.add(this.do2bo(doObj));
         }
-        return bizObjs;
+        return bizObjList;
     }
 
-    default List<D> bos2dos(List<B> bizObjs) {
-        List<D> doObjs = new ArrayList<>();
+    default List<D> bos2dos(List<B> bizObjList) {
+        List<D> doObjList = new ArrayList<>();
 
-        if (CollectionUtils.isEmpty(bizObjs)) {
-            return doObjs;
+        if (CollectionUtils.isEmpty(bizObjList)) {
+            return doObjList;
         }
 
-        for (B bizObj : bizObjs) {
-            doObjs.add(this.bo2do(bizObj));
+        for (B bizObj : bizObjList) {
+            doObjList.add(this.bo2do(bizObj));
         }
-        return doObjs;
+        return doObjList;
     }
 }

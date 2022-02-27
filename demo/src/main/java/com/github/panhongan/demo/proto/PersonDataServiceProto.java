@@ -3,7 +3,7 @@ package com.github.panhongan.demo.proto;
 import com.github.panhongan.bean2sql.table.TableAccess;
 import com.github.panhongan.conveyer.service.AbstractDataService;
 import com.github.panhongan.conveyer.service.Converter;
-import com.github.panhongan.conveyer.service.WriteOpChecker;
+import com.github.panhongan.conveyer.service.WriteChecker;
 import com.github.panhongan.demo.PersonDO;
 import com.github.panhongan.demo.PersonTableAccess;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class PersonDataServiceProto extends AbstractDataService<Person, PersonDO
     private PersonConverterProto personConverterProto;
 
     @Autowired
-    private PersonWriteOpCheckerProto personWriteOpCheckerProto;
+    private PersonWriteCheckerProto personWriteCheckerProto;
 
     @Override
     protected TableAccess<PersonDO> getTableAccess() {
@@ -38,7 +38,7 @@ public class PersonDataServiceProto extends AbstractDataService<Person, PersonDO
     }
 
     @Override
-    public WriteOpChecker<Person> getWriteOpChecker() {
-        return personWriteOpCheckerProto;
+    public WriteChecker<Person, PersonDO> getWriteChecker() {
+        return personWriteCheckerProto;
     }
 }

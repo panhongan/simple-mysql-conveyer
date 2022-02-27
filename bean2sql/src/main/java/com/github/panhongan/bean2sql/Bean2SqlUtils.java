@@ -2,7 +2,7 @@ package com.github.panhongan.bean2sql;
 
 import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
 import com.github.panhongan.commons.MysqlConveyerException;
-import com.github.panhongan.utils.time.DateUtils;
+import com.github.panhongan.utils.datetime.DateUtils;
 import com.github.panhongan.utils.naming.NamingUtils;
 import com.github.panhongan.utils.reflect.ReflectUtils;
 import com.github.panhongan.bean2sql.condition.SqlCondition;
@@ -66,7 +66,7 @@ public class Bean2SqlUtils {
 
                 // 日期格式化
                 if (type.equals("Date")) {
-                    values.put(index++, DateUtils.format((Date) value, DateUtils.SETTLE_PATTERN));
+                    values.put(index++, DateUtils.date2Str((Date) value, DateUtils.SETTLE_PATTERN));
                 } else {
                     values.put(index++, value.toString());
                 }
@@ -115,7 +115,7 @@ public class Bean2SqlUtils {
                 conditionSql.append(AND_STR);
 
                 if (type.equals("Date")) {
-                    values.put(index++, DateUtils.format((Date) value, DateUtils.SETTLE_PATTERN));
+                    values.put(index++, DateUtils.date2Str((Date) value, DateUtils.SETTLE_PATTERN));
                 } else {
                     values.put(index++, value.toString());
                 }
@@ -193,7 +193,7 @@ public class Bean2SqlUtils {
                 if (type.equals("String")) {
                     values.put(index++, "%" + strVal + "%");
                 } else {
-                    values.put(index++, "%" + DateUtils.format((Date) value, DateUtils.SETTLE_PATTERN).substring(0, 10) + "%");
+                    values.put(index++, "%" + DateUtils.date2Str((Date) value, DateUtils.SETTLE_PATTERN).substring(0, 10) + "%");
                 }
             }
         } catch (Exception e) {
@@ -242,7 +242,7 @@ public class Bean2SqlUtils {
                 placeHolders.append(COMMA_STR);
 
                 if (type.equals("Date")) {
-                    values.put(index++, DateUtils.format((Date) value, DateUtils.SETTLE_PATTERN));
+                    values.put(index++, DateUtils.date2Str((Date) value, DateUtils.SETTLE_PATTERN));
                 } else {
                     values.put(index++, value.toString());
                 }
@@ -252,7 +252,7 @@ public class Bean2SqlUtils {
         }
 
         if (fieldNames.length() == 0) {
-            throw new MysqlConveyerException("no value for object : " + obj.toString());
+            throw new MysqlConveyerException("no value for object : " + obj);
         }
 
         if (fieldNames.length() > 0) {
@@ -296,7 +296,7 @@ public class Bean2SqlUtils {
 
                 String type = field.getType().getSimpleName();
                 if (type.equals("Date")) {
-                    values.put(index++, DateUtils.format((Date) value, DateUtils.SETTLE_PATTERN));
+                    values.put(index++, DateUtils.date2Str((Date) value, DateUtils.SETTLE_PATTERN));
                 } else {
                     values.put(index++, value.toString());
                 }
@@ -306,7 +306,7 @@ public class Bean2SqlUtils {
         }
 
         if (sql.length() == 0) {
-            throw new MysqlConveyerException("no value for object : " + obj.toString());
+            throw new MysqlConveyerException("no value for object : " + obj);
         }
 
         // delete ','

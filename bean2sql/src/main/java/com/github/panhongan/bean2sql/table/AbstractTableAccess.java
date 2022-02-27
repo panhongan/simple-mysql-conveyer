@@ -10,12 +10,14 @@ import com.github.panhongan.bean2sql.condition.impl.EqualCondition;
 import com.github.panhongan.bean2sql.condition.SqlCondition;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.oval.constraint.NotNull;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author panhongan
@@ -28,13 +30,6 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
 
     @Autowired
     private SqlExecutor sqlExecutor;
-
-    /**
-     * 数据库表
-     *
-     * @return String 数据表名
-     */
-    public abstract String getTable();
 
     @Override
     public long getMaxRowId(SqlCondition sqlCondition) throws MysqlConveyerException {
@@ -66,6 +61,19 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
         Pair<String, Map<Integer, String>> pair = SqlMaker.makeUpdateSql(this.getTable(), id, newRecord);
         log.info("update, sql = {}, values = {}", pair.getLeft(), pair.getRight());
         return sqlExecutor.update(pair.getLeft(), pair.getRight());
+    }
+
+    @Override
+    public Optional<D> queryById(long id) throws MysqlConveyerException {
+        D obj = this.emptyDO();
+        Pair<String, Map<Integer, String>> pair = SqlMaker.makeQueryByIdSql(this.getTable(), id, obj.getClass());
+        log.info("queryById, sql = {}, values = {}", pair.getLeft(), pair.getRight());
+        List<D> list = sqlExecutor.select(pair.getLeft(), pair.getRight(), (Class<D>) obj.getClass());
+        if (CollectionUtils.isNotEmpty(list)) {
+            return Optional.of(list.get(0));
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override

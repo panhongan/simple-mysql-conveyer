@@ -30,9 +30,9 @@ public class TestTableDemo {
         transactionManagerEx = context.getBean(TransactionManagerEx.class);
 
         //testQueryByCondition();
-        testQueryByLikeCondition();
+        // testQueryByLikeCondition();
         //testQueryById();
-        //testQueryByPage();
+        testQueryByPage();
         //testGetMaxId();
         //testInsert();
         //testInsert_TransactionException();
@@ -44,7 +44,7 @@ public class TestTableDemo {
 
     public static void testQueryByCondition() {
         PersonDO condition = new PersonDO();
-        condition.setName("pha");
+        condition.setName("pha6");
         System.out.println(tableAccess.queryByCondition(condition));
     }
 
@@ -60,14 +60,12 @@ public class TestTableDemo {
     }
 
     public static void testQueryById() {
-        PersonDO condition = new PersonDO();
-        condition.setId(1L);
-        System.out.println(tableAccess.queryByCondition(condition));
+        System.out.println(tableAccess.queryById(1L));
     }
 
     public static void testQueryByPage() {
         PersonDO condition = new PersonDO();
-        condition.setName("pha");
+        condition.setName("pha6");
 
         PageContext pageContext = new PageContext();
         pageContext.setCurrPage(1);
@@ -118,7 +116,7 @@ public class TestTableDemo {
         newObj.setUpdatedBy("test-update2");
         newObj.setUpdatedAt(new Date());
 
-        int affectedRows = transactionManagerEx.execute(() -> tableAccess.update(7L, newObj));
+        int affectedRows = transactionManagerEx.execute(() -> tableAccess.update(1L, newObj));
         System.out.println(affectedRows);
     }
 

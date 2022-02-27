@@ -212,13 +212,18 @@ public class TableAccessTest extends SpringTest {
         assert(pair.getRight().size() == 2);
     }
 
-    private class MyTableAccess extends AbstractTableAccess<TestObj> {
+    private static class MyTableAccess extends AbstractTableAccess<TestObj> {
 
         private static final String TABLE_NAME = "t_person";
 
         @Override
         public String getTable() {
             return TABLE_NAME;
+        }
+
+        @Override
+        public TestObj emptyDO() {
+            return new TestObj();
         }
     }
 }

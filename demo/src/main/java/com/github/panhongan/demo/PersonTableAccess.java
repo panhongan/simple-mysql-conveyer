@@ -1,7 +1,6 @@
 package com.github.panhongan.demo;
 
 import com.github.panhongan.bean2sql.table.AbstractTableAccess;
-import com.github.panhongan.demo.PersonDO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,5 +17,10 @@ public class PersonTableAccess extends AbstractTableAccess<PersonDO> {
     @Override
     public String getTable() {
         return TABLE;
+    }
+
+    @Override
+    public PersonDO emptyDO() {
+        return new PersonDO();
     }
 }

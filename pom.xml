@@ -6,7 +6,7 @@
 
     <groupId>com.github.panhongan</groupId>
     <artifactId>simple-mysql-conveyer</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.6</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>simple mysql conveyer</description>
@@ -36,7 +36,7 @@
         <junit.version>4.13.1</junit.version>
         <logback.version>1.1.8</logback.version>
         <oval.version>1.86</oval.version>
-        <lalaluplus.commons.version>0.1.12</lalaluplus.commons.version>
+        <lalaluplus.commons.version>1.3</lalaluplus.commons.version>
         <spring.utils.version>1.0.2</spring.utils.version>
     </properties>
 
@@ -279,6 +279,8 @@
                             <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>
+                    <source>${maven.compiler.source}</source>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
                 <executions>
                     <execution>

@@ -1,7 +1,8 @@
-package com.github.panhongan.demo.thrift;
+package com.github.panhongan.demo.javabean;
 
+import com.github.panhongan.bean2sql.table.TableAccess;
 import com.github.panhongan.commons.MysqlConveyerException;
-import com.github.panhongan.conveyer.service.WriteOpChecker;
+import com.github.panhongan.conveyer.service.WriteChecker;
 import com.github.panhongan.demo.PersonDO;
 import com.github.panhongan.demo.PersonTableAccess;
 import com.google.common.base.Preconditions;
@@ -20,10 +21,15 @@ import java.util.Objects;
  */
 
 @Service
-public class PersonWriteOpCheckerThrift implements WriteOpChecker<Person> {
+public class PersonWriteChecker implements WriteChecker<Person, PersonDO> {
 
     @Autowired
     private PersonTableAccess personTableAccess;
+
+    @Override
+    public TableAccess<PersonDO> getTableAccess() {
+        return personTableAccess;
+    }
 
     @Override
     public void checkBeforeAdd(Person bizObj) throws MysqlConveyerException {
@@ -35,28 +41,6 @@ public class PersonWriteOpCheckerThrift implements WriteOpChecker<Person> {
         List<PersonDO> list = personTableAccess.queryByCondition(condition);
         if (CollectionUtils.isNotEmpty(list)) {
             throw new MysqlConveyerException("待插入记录已经存在, name=" + bizObj.getName());
-        }
-    }
-
-    @Override
-    public void checkBeforeModify(long oriId, Person newBizObj) throws MysqlConveyerException {
-        PersonDO condition = new PersonDO();
-        condition.setId(oriId);
-        List<PersonDO> list = personTableAccess.queryByCondition(condition);
-        if (CollectionUtils.isEmpty(list)) {
-            throw new MysqlConveyerException("待修改记录不存在, id=" + oriId);
-        }
-
-        Preconditions.checkArgument(list.size() == 1, "记录数大于1, id=" + oriId);
-    }
-
-    @Override
-    public void checkBeforeDelete(long oriId) throws MysqlConveyerException {
-        PersonDO condition = new PersonDO();
-        condition.setId(oriId);
-        List<PersonDO> list = personTableAccess.queryByCondition(condition);
-        if (CollectionUtils.isEmpty(list)) {
-            throw new MysqlConveyerException("待删除记录不存在, id=" + oriId);
         }
     }
 }

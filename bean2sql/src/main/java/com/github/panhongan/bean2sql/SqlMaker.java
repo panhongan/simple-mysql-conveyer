@@ -17,6 +17,22 @@ import java.util.Map;
 
 public class SqlMaker {
 
+    public static <D> Pair<String, Map<Integer, String>> makeQueryByIdSql(String tableName, long id, Class<D> c) {
+        Preconditions.checkArgument(StringUtils.isNotEmpty(tableName), "tableName is empty");
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("select ");
+        builder.append(Bean2SqlUtils.getSelectFieldsStringFast(c));
+        builder.append(" from ");
+        builder.append(tableName);
+        builder.append(" where id=?");
+
+        Map<Integer, String> values = new HashMap<>();
+        values.put(1, String.valueOf(id));
+
+        return Pair.of(builder.toString(), values);
+    }
+
     public static Pair<String, Map<Integer, String>> makeMaxRowIdSql(String tableName, SqlCondition sqlCondition) {
         Preconditions.checkArgument(StringUtils.isNotEmpty(tableName), "tableName is empty");
 

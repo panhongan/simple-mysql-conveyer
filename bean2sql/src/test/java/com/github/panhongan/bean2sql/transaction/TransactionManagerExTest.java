@@ -7,10 +7,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
+/**
+ * @author lalaluplus
+ * @since 2020.7.1
+ */
 public class TransactionManagerExTest extends SpringTest {
     @InjectMocks
     private TransactionManagerEx transactionManagerEx;

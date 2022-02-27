@@ -47,8 +47,6 @@ public class TestDataServiceDemoProto {
 
         AddReq<Person> request = new AddReq<>();
         request.setCreatedBy("pha2");
-        request.setDataType("person");
-        request.setEffectTime(null);
         request.setBizObj(person);
 
         long id = personDataServiceProto.add(request);
@@ -64,8 +62,6 @@ public class TestDataServiceDemoProto {
         ModifyReq<Person> request = new ModifyReq<>();
         request.setOriId(6L);
         request.setUpdatedBy("pha66");
-        request.setDataType("person");
-        request.setEffectTime(null);
         request.setNewBizObj(person);
 
         System.out.println(personDataServiceProto.modify(request));

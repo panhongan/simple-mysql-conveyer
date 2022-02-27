@@ -65,9 +65,4 @@ public class PersonConverterProto implements Converter<Person, PersonDO> {
 
         return doObj;
     }
-
-    @Override
-    public PersonDO emptyDO() {
-        return new PersonDO();
-    }
 }

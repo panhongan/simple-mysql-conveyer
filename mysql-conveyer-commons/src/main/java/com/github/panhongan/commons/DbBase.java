@@ -19,6 +19,12 @@ import java.util.Objects;
 @ToString
 public class DbBase implements Serializable {
 
+    private static final String DEFAULT_OPERATOR = "system";
+
+    public static String defaultOperator() {
+        return DEFAULT_OPERATOR;
+    }
+
     /**
      * 数据库表记录id
      */

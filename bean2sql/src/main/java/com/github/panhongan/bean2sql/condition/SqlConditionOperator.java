@@ -1,10 +1,9 @@
 package com.github.panhongan.bean2sql.condition;
 
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
 
 /**
- * 条件操作符定义
+ * 条件操作符定义.
  *
  * @author panhongan
  * @since 2019.7.8
@@ -38,10 +37,10 @@ public enum SqlConditionOperator {
     }
 
     public static boolean isComparableType(SqlConditionOperator sqlConditionOperator) {
-        return (SqlConditionOperator.LESS == sqlConditionOperator ||
-            SqlConditionOperator.LESS_OR_EQUAL == sqlConditionOperator ||
-            SqlConditionOperator.GREATER == sqlConditionOperator ||
-            SqlConditionOperator.GREATER_OR_EQUAL == sqlConditionOperator);
+        return (SqlConditionOperator.LESS == sqlConditionOperator
+                || SqlConditionOperator.LESS_OR_EQUAL == sqlConditionOperator
+                || SqlConditionOperator.GREATER == sqlConditionOperator
+                || SqlConditionOperator.GREATER_OR_EQUAL == sqlConditionOperator);
     }
 
     public static boolean isNotComparableType(SqlConditionOperator sqlConditionOperator) {
@@ -49,8 +48,8 @@ public enum SqlConditionOperator {
     }
 
     public static boolean isEqualType(SqlConditionOperator sqlConditionOperator) {
-        return (SqlConditionOperator.EQUAL == sqlConditionOperator ||
-            SqlConditionOperator.NOT_EQUAL == sqlConditionOperator);
+        return (SqlConditionOperator.EQUAL == sqlConditionOperator
+                || SqlConditionOperator.NOT_EQUAL == sqlConditionOperator);
     }
 
     public static boolean isNotEqualType(SqlConditionOperator sqlConditionOperator) {

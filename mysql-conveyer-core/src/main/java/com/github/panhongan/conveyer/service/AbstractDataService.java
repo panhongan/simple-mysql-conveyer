@@ -1,15 +1,24 @@
 package com.github.panhongan.conveyer.service;
 
+import com.github.panhongan.bean2sql.table.PageContext;
+import com.github.panhongan.bean2sql.table.TableAccess;
 import com.github.panhongan.bean2sql.transaction.TransactionManagerEx;
 import com.github.panhongan.commons.DbBase;
 import com.github.panhongan.commons.ExceptionalActionWrapper;
+import com.github.panhongan.commons.PageResult;
 import com.github.panhongan.conveyer.service.req.AddReq;
 import com.github.panhongan.conveyer.service.req.ModifyReq;
+import com.github.panhongan.conveyer.service.req.QueryByConditionReq;
+import com.github.panhongan.conveyer.service.req.QueryByPageReq;
 import com.github.panhongan.utils.object.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author panhongan
@@ -18,14 +27,65 @@ import java.util.Date;
  */
 
 @Service
-public abstract class AbstractDataService<B, D extends DbBase>
-        extends AbstractQueryService<B, D>
-        implements DataService<B, D> {
+public abstract class AbstractDataService<B, D> {
 
     @Autowired
     private TransactionManagerEx transactionManagerEx;
 
-    @Override
+    protected abstract TableAccess<D> getTableAccess();
+
+    protected abstract Converter<B, D> getConverter();
+
+    protected abstract WriteChecker<B, D> getWriteChecker();
+
+    public Optional<B> queryById(long id) {
+        return ExceptionalActionWrapper.run(() -> {
+            Optional<D> doObj = this.getTableAccess().queryById(id);
+            return doObj.map(x -> this.getConverter().do2bo(x));
+        });
+    }
+
+    public List<B> queryByCondition(QueryByConditionReq<B> request) {
+        return ExceptionalActionWrapper.run(() -> {
+            ObjectUtils.validateObject(request);
+            D condition = this.getConverter().bo2do(request.getBizObjCondition());
+            if (Objects.isNull(condition)) {
+                condition = this.getTableAccess().emptyDO();
+            }
+
+            List<D> doObjList = this.getTableAccess().queryByCondition(condition, request.getSqlCondition());
+            return this.getConverter().dos2bos(doObjList);
+        });
+    }
+
+    public PageResult<B> queryByPage(QueryByPageReq<B> request) {
+        return ExceptionalActionWrapper.run(() -> {
+            ObjectUtils.validateObject(request);
+
+            D condition = this.getConverter().bo2do(request.getBizObjCondition());
+            if (condition == null) {
+                condition = this.getTableAccess().emptyDO();
+            }
+
+            PageContext pageContext = new PageContext();
+            pageContext.setCurrPage(request.getCurrPage());
+            pageContext.setPageSize(request.getPageSize());
+
+            PageResult<D> pageResult = this.getTableAccess().queryByPage(condition, request.getSqlCondition(), pageContext);
+
+            // convert
+            PageResult<B> finalResult = new PageResult<>();
+            finalResult.setTotalCount(pageResult.getTotalCount());
+            finalResult.setTotalPage(pageResult.getTotalPage());
+            finalResult.setPageSize(pageResult.getPageSize());
+            finalResult.setCurrPage(pageResult.getCurrPage());
+            for (D doObj : pageResult.getResult()) {
+                finalResult.add(this.getConverter().do2bo(doObj));
+            }
+            return finalResult;
+        });
+    }
+
     public long add(AddReq<B> request) {
         return ExceptionalActionWrapper.run(() -> {
             ObjectUtils.validateObject(request);
@@ -33,20 +93,25 @@ public abstract class AbstractDataService<B, D extends DbBase>
             ObjectUtils.validateObject(bizObj);
 
             // check write operation
-            this.getWriteOpChecker().checkBeforeAdd(bizObj);
+            this.getWriteChecker().checkBeforeAdd(bizObj);
 
-            // insert data
             D doObj = this.getConverter().bo2do(bizObj);
-            doObj.setCreatedAt(new Date());
-            doObj.setCreatedBy(request.getCreatedBy());
-            doObj.setUpdatedAt(new Date());
-            doObj.setUpdatedBy(request.getCreatedBy());
+
+            if (doObj instanceof DbBase) {
+                Date currTimestamp = new Date();
+                String operator = StringUtils.isNotEmpty(request.getCreatedBy()) ? request.getCreatedBy() : DbBase.defaultOperator();
+
+                DbBase dbBase = (DbBase) doObj;
+                dbBase.setCreatedAt(currTimestamp);
+                dbBase.setCreatedBy(operator);
+                dbBase.setUpdatedAt(currTimestamp);
+                dbBase.setUpdatedBy(operator);
+            }
 
             return transactionManagerEx.execute(() -> this.getTableAccess().insert(doObj));
         });
     }
 
-    @Override
     public int modify(ModifyReq<B> request) {
         return ExceptionalActionWrapper.run(() -> {
             ObjectUtils.validateObject(request);
@@ -56,21 +121,27 @@ public abstract class AbstractDataService<B, D extends DbBase>
             long oriId = request.getOriId();
 
             // check new data
-            this.getWriteOpChecker().checkBeforeModify(oriId, newBizObj);
+            this.getWriteChecker().checkBeforeModify(oriId, newBizObj);
 
             // modify data
             D newObj = this.getConverter().bo2do(newBizObj);
-            newObj.setUpdatedAt(new Date());
-            newObj.setUpdatedBy(request.getUpdatedBy());
+
+            if (newObj instanceof DbBase) {
+                Date currTimestamp = new Date();
+                String operator = StringUtils.isNotEmpty(request.getUpdatedBy()) ? request.getUpdatedBy() : DbBase.defaultOperator();
+
+                DbBase dbBase = (DbBase) newObj;
+                dbBase.setUpdatedAt(currTimestamp);
+                dbBase.setUpdatedBy(operator);
+            }
 
             return transactionManagerEx.execute(() -> this.getTableAccess().update(oriId, newObj));
         });
     }
 
-    @Override
     public int deleteById(long id) {
         return ExceptionalActionWrapper.run(() -> {
-            this.getWriteOpChecker().checkBeforeDelete(id);
+            this.getWriteChecker().checkBeforeDelete(id);
             return transactionManagerEx.execute(() -> this.getTableAccess().deleteById(id));
         });
     }

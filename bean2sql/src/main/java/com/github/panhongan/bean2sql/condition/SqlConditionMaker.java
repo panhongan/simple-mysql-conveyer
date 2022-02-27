@@ -62,13 +62,11 @@ public class SqlConditionMaker {
     }
 
     public static AndCondition andCondition() {
-        AndCondition condition = new AndCondition();
-        return condition;
+        return new AndCondition();
     }
 
     public static OrCondition orCondition() {
-        OrCondition condition = new OrCondition();
-        return condition;
+        return new OrCondition();
     }
 
     public static <T extends Comparable<T>> BetweenAndCondition betweenAndCondition(String fieldName, T begin, T end) {

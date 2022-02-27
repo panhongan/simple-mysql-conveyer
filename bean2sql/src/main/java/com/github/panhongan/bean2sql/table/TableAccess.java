@@ -6,6 +6,7 @@ import com.github.panhongan.bean2sql.condition.SqlCondition;
 import net.sf.oval.constraint.NotNull;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @param <D> Data Object mapping to db
@@ -16,6 +17,10 @@ import java.util.List;
  */
 
 public interface TableAccess<D> {
+
+    String getTable();
+
+    D emptyDO();
 
     /**
      * 查询满足条件记录的最大ID
@@ -47,6 +52,8 @@ public interface TableAccess<D> {
      * @throws MysqlConveyerException MysqlConveyerException
      */
     int update(long id, @NotNull D newRecord) throws MysqlConveyerException;
+
+    Optional<D> queryById(long id) throws MysqlConveyerException;
 
     /**
      * 按条件查询

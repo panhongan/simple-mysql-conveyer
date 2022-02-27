@@ -8,7 +8,7 @@ import com.github.panhongan.bean2sql.condition.SqlConditionOperator;
  * obj.f2 = 20
  *
  * sql : f1 &lt;= ? and f2 &lt;= ?
- * vaues: (1, 100), (2, 20)
+ * values: (1, 100), (2, 20)
  *
  * @param <T> 包含小于或等于字段的对象
  */

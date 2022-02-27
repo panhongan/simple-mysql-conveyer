@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import net.sf.oval.constraint.Min;
-import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNull;
-
-import java.util.Date;
 
 /**
  * @author panhongan
@@ -29,16 +26,5 @@ public class ModifyReq<B> {
     @NotNull
     private B newBizObj;
 
-    @NotBlank
-    @NotNull
     private String updatedBy;
-
-    @NotBlank
-    @NotNull
-    private String dataType;
-
-    /**
-     * 数据生效时间
-     */
-    private Date effectTime;
 }
