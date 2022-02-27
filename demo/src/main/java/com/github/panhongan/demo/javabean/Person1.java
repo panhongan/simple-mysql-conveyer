@@ -1,6 +1,5 @@
-package com.github.panhongan.demo;
+package com.github.panhongan.demo.javabean;
 
-import com.github.panhongan.commons.DbBase;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,8 +14,10 @@ import java.util.Date;
 
 @Getter
 @Setter
-@ToString(callSuper = true)
-public class PersonDO extends DbBase {
+@ToString
+public class Person1 {
+
+    private Long id;
 
     private String name;
 
