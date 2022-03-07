@@ -1,8 +1,8 @@
 package com.github.panhongan.demo.javabean;
 
-import com.github.panhongan.bean2sql.table.TableAccess;
-import com.github.panhongan.commons.MysqlConveyerException;
-import com.github.panhongan.conveyer.service.WriteChecker;
+import com.github.panhongan.mysql.conveyer.bean2sql.table.TableAccess;
+import com.github.panhongan.mysql.conveyer.commons.MysqlConveyerException;
+import com.github.panhongan.mysql.conveyer.core.WriteChecker;
 import com.github.panhongan.demo.PersonDO;
 import com.github.panhongan.demo.PersonTableAccess;
 import com.google.common.base.Preconditions;
@@ -38,7 +38,7 @@ public class PersonWriteChecker implements WriteChecker<Person, PersonDO> {
 
         PersonDO condition = new PersonDO();
         condition.setName(bizObj.getName());
-        List<PersonDO> list = personTableAccess.queryByCondition(condition);
+        List<PersonDO> list = personTableAccess.queryByCondition(condition, null);
         if (CollectionUtils.isNotEmpty(list)) {
             throw new MysqlConveyerException("待插入记录已经存在, name=" + bizObj.getName());
         }

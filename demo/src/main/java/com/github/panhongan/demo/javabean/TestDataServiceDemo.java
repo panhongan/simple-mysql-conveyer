@@ -1,11 +1,13 @@
 package com.github.panhongan.demo.javabean;
 
-import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
-import com.github.panhongan.bean2sql.condition.impl.LikeCondition;
-import com.github.panhongan.conveyer.service.req.AddReq;
-import com.github.panhongan.conveyer.service.req.ModifyReq;
-import com.github.panhongan.conveyer.service.req.QueryByConditionReq;
-import com.github.panhongan.conveyer.service.req.QueryByPageReq;
+import com.github.panhongan.demo.OrderByCreatedTime;
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.SqlConditionMaker;
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.impl.LikeCondition;
+import com.github.panhongan.mysql.conveyer.bean2sql.orderby.OrderBy;
+import com.github.panhongan.mysql.conveyer.core.req.AddReq;
+import com.github.panhongan.mysql.conveyer.core.req.ModifyReq;
+import com.github.panhongan.mysql.conveyer.core.req.QueryByConditionReq;
+import com.github.panhongan.mysql.conveyer.core.req.QueryByPageReq;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
@@ -27,12 +29,12 @@ public class TestDataServiceDemo {
         personDataService = context.getBean(PersonDataService.class);
 
         // add();
-        modify();
+        // modify();
         // deleteById();
         // queryById();
         // queryByCondition();
         // queryByLikeCondition();
-        //queryByPage();
+        queryByPage();
     }
 
     public static void add() {
@@ -79,25 +81,31 @@ public class TestDataServiceDemo {
 
     public static void queryByLikeCondition() {
         Person condition = new Person();
-        condition.setName("pha2");
+        // condition.setName("pha2");
 
         Person likeObj = new Person();
-        likeObj.setName("pha");
+        likeObj.setName("pha6");
         LikeCondition likeCondition = SqlConditionMaker.likeCondition(likeObj);
+
+        OrderBy orderBy = new OrderBy(OrderByCreatedTime.class, false);
 
         QueryByConditionReq<Person> request = new QueryByConditionReq<>();
         request.setBizObjCondition(condition);
         request.setSqlCondition(likeCondition);
+        request.setOrderBy(orderBy);
 
         System.out.println(personDataService.queryByCondition(request));
     }
 
     public static void queryByPage() {
         Person condition = new Person();
-        condition.setName("pha2");
+        // condition.setName("pha2");
+
+        OrderBy orderBy = new OrderBy(OrderByCreatedTime.class, false);
 
         QueryByPageReq<Person> request = new QueryByPageReq<>();
         request.setBizObjCondition(condition);
+        request.setOrderBy(orderBy);
         request.setCurrPage(1);
         request.setPageSize(10);
 

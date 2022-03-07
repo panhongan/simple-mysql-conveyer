@@ -1,9 +1,9 @@
 package com.github.panhongan.demo.thrift;
 
-import com.github.panhongan.bean2sql.table.TableAccess;
-import com.github.panhongan.conveyer.service.AbstractDataService;
-import com.github.panhongan.conveyer.service.Converter;
-import com.github.panhongan.conveyer.service.WriteChecker;
+import com.github.panhongan.mysql.conveyer.bean2sql.table.TableAccess;
+import com.github.panhongan.mysql.conveyer.core.AbstractDataService;
+import com.github.panhongan.mysql.conveyer.core.Converter;
+import com.github.panhongan.mysql.conveyer.core.WriteChecker;
 import com.github.panhongan.demo.PersonDO;
 import com.github.panhongan.demo.PersonTableAccess;
 import org.springframework.beans.factory.annotation.Autowired;

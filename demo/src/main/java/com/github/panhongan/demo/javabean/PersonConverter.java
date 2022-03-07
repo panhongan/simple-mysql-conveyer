@@ -1,7 +1,7 @@
 package com.github.panhongan.demo.javabean;
 
-import com.github.panhongan.commons.DbBase;
-import com.github.panhongan.conveyer.service.Converter;
+import com.github.panhongan.mysql.conveyer.commons.DbBase;
+import com.github.panhongan.mysql.conveyer.core.Converter;
 import com.github.panhongan.demo.PersonDO;
 import org.springframework.stereotype.Service;
 

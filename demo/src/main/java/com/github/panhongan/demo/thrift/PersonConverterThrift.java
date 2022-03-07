@@ -1,6 +1,6 @@
 package com.github.panhongan.demo.thrift;
 
-import com.github.panhongan.conveyer.service.Converter;
+import com.github.panhongan.mysql.conveyer.core.Converter;
 import com.github.panhongan.demo.PersonDO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

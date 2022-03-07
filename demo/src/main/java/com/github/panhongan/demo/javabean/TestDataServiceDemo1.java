@@ -1,11 +1,11 @@
 package com.github.panhongan.demo.javabean;
 
-import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
-import com.github.panhongan.bean2sql.condition.impl.LikeCondition;
-import com.github.panhongan.conveyer.service.req.AddReq;
-import com.github.panhongan.conveyer.service.req.ModifyReq;
-import com.github.panhongan.conveyer.service.req.QueryByConditionReq;
-import com.github.panhongan.conveyer.service.req.QueryByPageReq;
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.SqlConditionMaker;
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.impl.LikeCondition;
+import com.github.panhongan.mysql.conveyer.core.req.AddReq;
+import com.github.panhongan.mysql.conveyer.core.req.ModifyReq;
+import com.github.panhongan.mysql.conveyer.core.req.QueryByConditionReq;
+import com.github.panhongan.mysql.conveyer.core.req.QueryByPageReq;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
@@ -94,7 +94,7 @@ public class TestDataServiceDemo1 {
 
     public static void queryByPage() {
         Person1 condition = new Person1();
-        condition.setName("pha1");
+        //condition.setName("pha1");
 
         QueryByPageReq<Person1> request = new QueryByPageReq<>();
         request.setBizObjCondition(condition);

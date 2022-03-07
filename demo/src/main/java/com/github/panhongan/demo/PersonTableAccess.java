@@ -1,6 +1,6 @@
 package com.github.panhongan.demo;
 
-import com.github.panhongan.bean2sql.table.AbstractTableAccess;
+import com.github.panhongan.mysql.conveyer.bean2sql.table.AbstractTableAccess;
 import org.springframework.stereotype.Service;
 
 /**

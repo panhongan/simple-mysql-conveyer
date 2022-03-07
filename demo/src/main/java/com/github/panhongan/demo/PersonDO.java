@@ -1,6 +1,6 @@
 package com.github.panhongan.demo;
 
-import com.github.panhongan.commons.DbBase;
+import com.github.panhongan.mysql.conveyer.commons.DbBase;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

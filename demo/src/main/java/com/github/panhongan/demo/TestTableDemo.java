@@ -1,9 +1,10 @@
 package com.github.panhongan.demo;
 
-import com.github.panhongan.bean2sql.condition.SqlConditionMaker;
-import com.github.panhongan.bean2sql.condition.impl.LikeCondition;
-import com.github.panhongan.bean2sql.table.PageContext;
-import com.github.panhongan.bean2sql.transaction.TransactionManagerEx;
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.SqlConditionMaker;
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.impl.LikeCondition;
+import com.github.panhongan.mysql.conveyer.bean2sql.orderby.OrderBy;
+import com.github.panhongan.mysql.conveyer.bean2sql.table.PageContext;
+import com.github.panhongan.mysql.conveyer.commons.TransactionManagerEx;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Date;
@@ -29,7 +30,7 @@ public class TestTableDemo {
 
         transactionManagerEx = context.getBean(TransactionManagerEx.class);
 
-        //testQueryByCondition();
+        // testQueryByCondition();
         // testQueryByLikeCondition();
         //testQueryById();
         testQueryByPage();
@@ -45,7 +46,9 @@ public class TestTableDemo {
     public static void testQueryByCondition() {
         PersonDO condition = new PersonDO();
         condition.setName("pha6");
-        System.out.println(tableAccess.queryByCondition(condition));
+
+        OrderBy orderBy = new OrderBy(OrderByCreatedTime.class, false);
+        System.out.println(tableAccess.queryByCondition(condition, orderBy));
     }
 
     public static void testQueryByLikeCondition() {
@@ -54,9 +57,12 @@ public class TestTableDemo {
 
         PersonDO likeObj = new PersonDO();
         likeObj.setName("pha");
-        likeObj.setBirthday(new Date(2020 - 1900, 8, 15));
+        // likeObj.setBirthday(new Date(2020 - 1900, 8, 15));
         LikeCondition likeCondition = SqlConditionMaker.likeCondition(likeObj);
-        System.out.println(tableAccess.queryByCondition(condition, likeCondition));
+
+        OrderBy orderBy = new OrderBy(OrderByCreatedTime.class, false);
+
+        System.out.println(tableAccess.queryByCondition(condition, likeCondition, orderBy));
     }
 
     public static void testQueryById() {
@@ -65,12 +71,15 @@ public class TestTableDemo {
 
     public static void testQueryByPage() {
         PersonDO condition = new PersonDO();
-        condition.setName("pha6");
+        // condition.setName("pha6");
 
         PageContext pageContext = new PageContext();
         pageContext.setCurrPage(1);
         pageContext.setPageSize(10);
-        System.out.println(tableAccess.queryByPage(condition, pageContext));
+
+        OrderBy orderBy = new OrderBy(OrderByCreatedTime.class, false);
+
+        System.out.println(tableAccess.queryByPage(condition, orderBy, pageContext));
     }
 
     public static void testGetMaxId() {
