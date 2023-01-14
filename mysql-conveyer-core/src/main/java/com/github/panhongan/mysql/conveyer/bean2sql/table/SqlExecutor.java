@@ -49,6 +49,7 @@ public class SqlExecutor {
         mapFunc.put("Float", p -> p.getLeft().getFloat(p.getRight()));
         mapFunc.put("Double", p -> p.getLeft().getDouble(p.getRight()));
         mapFunc.put("Date", p -> p.getLeft().getTimestamp(p.getRight()));
+        mapFunc.put("BigDecimal", p -> p.getLeft().getBigDecimal(p.getRight()));
     }
 
     @Autowired

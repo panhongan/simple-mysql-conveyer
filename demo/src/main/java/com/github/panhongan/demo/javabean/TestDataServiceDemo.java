@@ -30,11 +30,11 @@ public class TestDataServiceDemo {
 
         // add();
         // modify();
-        // deleteById();
+        deleteById();
         // queryById();
         // queryByCondition();
         // queryByLikeCondition();
-        queryByPage();
+        //queryByPage();
     }
 
     public static void add() {

@@ -32,8 +32,8 @@ public class TestTableDemo {
 
         // testQueryByCondition();
         // testQueryByLikeCondition();
-        //testQueryById();
-        testQueryByPage();
+        testQueryById();
+        // testQueryByPage();
         //testGetMaxId();
         //testInsert();
         //testInsert_TransactionException();
@@ -66,7 +66,7 @@ public class TestTableDemo {
     }
 
     public static void testQueryById() {
-        System.out.println(tableAccess.queryById(1L));
+        System.out.println(tableAccess.queryById(3L));
     }
 
     public static void testQueryByPage() {
