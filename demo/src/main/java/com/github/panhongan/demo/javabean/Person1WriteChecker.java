@@ -2,6 +2,7 @@ package com.github.panhongan.demo.javabean;
 
 import com.github.panhongan.mysql.conveyer.bean2sql.table.TableAccess;
 import com.github.panhongan.mysql.conveyer.commons.MysqlConveyerException;
+import com.github.panhongan.mysql.conveyer.core.Converter;
 import com.github.panhongan.mysql.conveyer.core.WriteChecker;
 import com.github.panhongan.demo.Person1TableAccess;
 import com.github.panhongan.demo.PersonDO1;
@@ -26,21 +27,54 @@ public class Person1WriteChecker implements WriteChecker<Person1, PersonDO1> {
     @Autowired
     private Person1TableAccess person1TableAccess;
 
+    @Autowired
+    private Person1Converter person1Converter;
+
     @Override
     public TableAccess<PersonDO1> getTableAccess() {
         return person1TableAccess;
     }
 
     @Override
-    public void checkBeforeAdd(Person1 bizObj) throws MysqlConveyerException {
+    public Converter<Person1, PersonDO1> getConverter() {
+        return person1Converter;
+    }
+
+    @Override
+    public void checkParametersWhenAdd(Person1 bizObj) throws MysqlConveyerException {
         Preconditions.checkArgument(StringUtils.isNotBlank(bizObj.getName()), "name can't be empty");
         Preconditions.checkArgument(Objects.nonNull(bizObj.getBirthday()), "birthday can't be null");
+    }
 
+    @Override
+    public void checkUniq(Person1 bizObj) throws MysqlConveyerException {
         PersonDO1 condition = new PersonDO1();
         condition.setName(bizObj.getName());
         List<PersonDO1> list = person1TableAccess.queryByCondition(condition, null);
         if (CollectionUtils.isNotEmpty(list)) {
             throw new MysqlConveyerException("待插入记录已经存在, name=" + bizObj.getName());
         }
+    }
+
+    @Override
+    public void checkParametersWhenUpdate(Person1 newBizObj) throws MysqlConveyerException {
+        Preconditions.checkArgument(StringUtils.isNotBlank(newBizObj.getName()), "name can't be empty");
+        Preconditions.checkArgument(Objects.nonNull(newBizObj.getBirthday()), "birthday can't be null");
+    }
+
+    @Override
+    public Person1 mergeObjectWhenUpdate(Person1 oldBizObj, Person1 newBizObj) throws MysqlConveyerException {
+        Person1 mergedObj = new Person1();
+        mergedObj.setName(oldBizObj.getName());
+        mergedObj.setBirthday(oldBizObj.getBirthday());
+
+        if (Objects.nonNull(newBizObj.getName())) {
+            mergedObj.setName(newBizObj.getName());
+        }
+        if (Objects.nonNull(newBizObj.getBirthday())) {
+            mergedObj.setBirthday(newBizObj.getBirthday());
+        }
+
+        return mergedObj;
     }
 }

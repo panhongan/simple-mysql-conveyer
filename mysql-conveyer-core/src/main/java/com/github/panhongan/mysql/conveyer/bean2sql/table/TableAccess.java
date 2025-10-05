@@ -60,6 +60,17 @@ public interface TableAccess<D> {
      * 按条件查询
      *
      * @param condition 查询条件对象
+     * @return 返回符合条件的所有数据对象
+     * @throws MysqlConveyerException MysqlConveyerException
+     */
+    default List<D> queryByCondition(@NotNull D condition) throws MysqlConveyerException {
+        return queryByCondition(condition, null);
+    }
+
+    /**
+     * 按条件查询
+     *
+     * @param condition 查询条件对象
      * @param orderBy OrderBy
      * @return 返回符合条件的所有数据对象
      * @throws MysqlConveyerException MysqlConveyerException

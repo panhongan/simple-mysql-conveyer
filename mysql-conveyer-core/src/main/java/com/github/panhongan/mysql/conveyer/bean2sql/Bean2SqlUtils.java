@@ -357,13 +357,14 @@ public class Bean2SqlUtils {
 
     public static boolean checkEqualFieldType(String type) {
         return ("Long".equals(type) || "Integer".equals(type) || "Short".equals(type) ||
-                "Float".equals(type) || "Double".equals(type) ||
+                "Float".equals(type) || "Double".equals(type) || "BigDecimal".equals(type) ||
                 "Date".equals(type) || "String".equals(type));
     }
 
     public static boolean checkComparableFieldType(String type) {
         return ("Long".equals(type) || "Integer".equals(type) || "Short".equals(type) ||
-                "Float".equals(type) || "Double".equals(type) || "Date".equals(type));
+                "Float".equals(type) || "Double".equals(type) || "Date".equals(type) ||
+                "BigDecimal".equals(type));
     }
 
     public static boolean checkLikeFieldType(String type) {
