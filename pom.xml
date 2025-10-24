@@ -22,7 +22,7 @@
         <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <commons.lang3.version>3.8.1</commons.lang3.version>
+        <commons.lang3.version>3.18.0</commons.lang3.version>
         <lombok.version>1.18.10</lombok.version>
         <guava.version>32.0.0-jre</guava.version>
         <joda.time.version>2.3</joda.time.version>
@@ -32,7 +32,7 @@
         <slf4j.api.version>1.7.30</slf4j.api.version>
         <mockito.all.version>1.9.5</mockito.all.version>
         <junit.version>4.13.1</junit.version>
-        <logback.version>1.2.0</logback.version>
+        <logback.version>1.2.13</logback.version>
         <oval.version>1.86</oval.version>
         <lalaluplus.commons.version>1.3</lalaluplus.commons.version>
         <spring.utils.version>1.0.2</spring.utils.version>
