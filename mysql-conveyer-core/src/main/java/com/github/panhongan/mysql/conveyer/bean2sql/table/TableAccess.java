@@ -64,7 +64,7 @@ public interface TableAccess<D> {
      * @throws MysqlConveyerException MysqlConveyerException
      */
     default List<D> queryByCondition(@NotNull D condition) throws MysqlConveyerException {
-        return queryByCondition(condition, null);
+        return queryByCondition(condition, null, null);
     }
 
     /**
@@ -75,7 +75,23 @@ public interface TableAccess<D> {
      * @return 返回符合条件的所有数据对象
      * @throws MysqlConveyerException MysqlConveyerException
      */
-    List<D> queryByCondition(@NotNull D condition, OrderBy orderBy) throws MysqlConveyerException;
+    default List<D> queryByCondition(@NotNull D condition, OrderBy orderBy) throws MysqlConveyerException {
+        return queryByCondition(condition, null, orderBy);
+    }
+
+
+    /**
+     * 多条件查询，condition和sqlCondition是并且的关系
+     *
+     * @param condition 查询条件对象
+     * @param sqlCondition SqlCondition
+     * @return List 返回符合条件的所有数据对象
+     * @throws MysqlConveyerException MysqlConveyerException
+     */
+    default List<D> queryByCondition(@NotNull D condition, SqlCondition sqlCondition) throws MysqlConveyerException {
+        return queryByCondition(condition, sqlCondition, null);
+    }
+
 
     /**
      * 多条件查询，condition和sqlCondition是并且的关系

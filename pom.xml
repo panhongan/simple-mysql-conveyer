@@ -6,7 +6,7 @@
 
     <groupId>com.github.panhongan</groupId>
     <artifactId>simple-mysql-conveyer</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>simple mysql conveyer</description>

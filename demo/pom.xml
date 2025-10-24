@@ -20,7 +20,7 @@
         <logback.version>1.2.0</logback.version>
         <protobuf.version>3.16.3</protobuf.version>
         <thrift.version>0.14.0</thrift.version>
-        <simple.mysql.conveyer.version>1.0.9</simple.mysql.conveyer.version>
+        <simple.mysql.conveyer.version>1.0.10</simple.mysql.conveyer.version>
     </properties>
 
     <dependencies>

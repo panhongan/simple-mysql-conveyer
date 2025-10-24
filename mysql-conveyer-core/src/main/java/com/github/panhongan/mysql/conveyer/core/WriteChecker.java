@@ -21,39 +21,33 @@ public interface WriteChecker<B, D> {
 
     default void checkBeforeAdd(B bizObj) throws MysqlConveyerException {
         this.checkParametersWhenAdd(bizObj);
-        this.checkUniq(bizObj);
+        this.checkUniq(-1L, bizObj);
     }
 
     default void checkBeforeModify(long oriId, B newBizObj) throws MysqlConveyerException {
         this.checkParametersWhenUpdate(newBizObj);
+        this.checkExists(oriId);
+        this.checkUniq(oriId, newBizObj);
 
-        Optional<D> optional = this.getTableAccess().queryById(oriId);
-        if (!optional.isPresent()) {
-            throw new MysqlConveyerException("待修改记录不存在, id=" + oriId);
-        }
-
-        B oldBizObj = this.getConverter().do2bo(optional.get());
-
-        B mergedObj = this.mergeObjectWhenUpdate(oldBizObj, newBizObj);
-        this.checkUniq(mergedObj);
-
-        this.checkMoreWhenUpdate(oldBizObj, newBizObj);
+        this.checkMoreWhenUpdate(newBizObj, newBizObj);
     }
 
     default void checkBeforeDelete(long oriId) throws MysqlConveyerException {
-        Optional<D> optional = this.getTableAccess().queryById(oriId);
-        if (!optional.isPresent()) {
-            throw new MysqlConveyerException("待删除记录不存在, id=" + oriId);
-        }
+        this.checkExists(oriId);
     }
+
+    default void checkExists(long oriId) throws MysqlConveyerException {
+         Optional<D> optional = this.getTableAccess().queryById(oriId);
+         if (!optional.isPresent()) {
+             throw new MysqlConveyerException("待删除记录不存在, id=" + oriId);
+         }
+     }
 
     default void checkParametersWhenAdd(B bizObj) throws MysqlConveyerException { }
 
     default void checkParametersWhenUpdate(B newBizObj) throws MysqlConveyerException { }
 
-    B mergeObjectWhenUpdate(B oldBizObj, B newBizObj) throws MysqlConveyerException;
-
-    default void checkUniq(B bizObj) throws MysqlConveyerException { }
+    default void checkUniq(long oriId, B bizObj) throws MysqlConveyerException { }
 
     default void checkMoreWhenUpdate(B oldBizObj, B newBizObj) throws MysqlConveyerException { }
 }

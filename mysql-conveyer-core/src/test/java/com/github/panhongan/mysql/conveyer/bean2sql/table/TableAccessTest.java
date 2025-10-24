@@ -99,7 +99,7 @@ public class TableAccessTest extends SpringTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void testQueryByCondition_ObjectConditionIsNull() {
-        tableAccess.queryByCondition(null, null);
+        tableAccess.queryByCondition(null);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class TableAccessTest extends SpringTest {
         TestObj obj = new TestObj();
         obj.setName("hello");
         Mockito.when(sqlExecutor.select(Mockito.anyString(), Mockito.anyMap(), Mockito.any())).thenReturn(Collections.emptyList());
-        assert(tableAccess.queryByCondition(obj, null).isEmpty());
+        assert(tableAccess.queryByCondition(obj, (SqlCondition) null).isEmpty());
     }
 
     @Test (expected = IllegalArgumentException.class)

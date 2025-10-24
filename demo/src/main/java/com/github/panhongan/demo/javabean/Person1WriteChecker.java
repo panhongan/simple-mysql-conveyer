@@ -1,5 +1,8 @@
 package com.github.panhongan.demo.javabean;
 
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.impl.EqualCondition;
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.impl.IdNotEqualCondition;
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.impl.NotEqualCondition;
 import com.github.panhongan.mysql.conveyer.bean2sql.table.TableAccess;
 import com.github.panhongan.mysql.conveyer.commons.MysqlConveyerException;
 import com.github.panhongan.mysql.conveyer.core.Converter;
@@ -47,10 +50,13 @@ public class Person1WriteChecker implements WriteChecker<Person1, PersonDO1> {
     }
 
     @Override
-    public void checkUniq(Person1 bizObj) throws MysqlConveyerException {
+    public void checkUniq(long oriId, Person1 bizObj) throws MysqlConveyerException {
         PersonDO1 condition = new PersonDO1();
         condition.setName(bizObj.getName());
-        List<PersonDO1> list = person1TableAccess.queryByCondition(condition, null);
+
+        IdNotEqualCondition idNotEqualCondition = new IdNotEqualCondition(oriId);
+
+        List<PersonDO1> list = person1TableAccess.queryByCondition(condition, idNotEqualCondition);
         if (CollectionUtils.isNotEmpty(list)) {
             throw new MysqlConveyerException("待插入记录已经存在, name=" + bizObj.getName());
         }
@@ -60,21 +66,5 @@ public class Person1WriteChecker implements WriteChecker<Person1, PersonDO1> {
     public void checkParametersWhenUpdate(Person1 newBizObj) throws MysqlConveyerException {
         Preconditions.checkArgument(StringUtils.isNotBlank(newBizObj.getName()), "name can't be empty");
         Preconditions.checkArgument(Objects.nonNull(newBizObj.getBirthday()), "birthday can't be null");
-    }
-
-    @Override
-    public Person1 mergeObjectWhenUpdate(Person1 oldBizObj, Person1 newBizObj) throws MysqlConveyerException {
-        Person1 mergedObj = new Person1();
-        mergedObj.setName(oldBizObj.getName());
-        mergedObj.setBirthday(oldBizObj.getBirthday());
-
-        if (Objects.nonNull(newBizObj.getName())) {
-            mergedObj.setName(newBizObj.getName());
-        }
-        if (Objects.nonNull(newBizObj.getBirthday())) {
-            mergedObj.setBirthday(newBizObj.getBirthday());
-        }
-
-        return mergedObj;
     }
 }

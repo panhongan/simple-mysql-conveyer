@@ -78,12 +78,6 @@ public abstract class AbstractTableAccess<D> implements TableAccess<D> {
     }
 
     @Override
-    public List<D> queryByCondition(@NotNull D condition, OrderBy orderBy) throws MysqlConveyerException {
-        ObjectUtils.validateObject(condition);
-        return this.queryByCondition(condition, null, orderBy);
-    }
-
-    @Override
     public List<D> queryByCondition(@NotNull D condition, SqlCondition sqlCondition, OrderBy orderBy) throws MysqlConveyerException {
         ObjectUtils.validateObject(condition);
 

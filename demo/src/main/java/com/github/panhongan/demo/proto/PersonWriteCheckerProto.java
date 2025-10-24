@@ -1,6 +1,7 @@
 package com.github.panhongan.demo.proto;
 
 import com.github.panhongan.demo.javabean.PersonConverter;
+import com.github.panhongan.mysql.conveyer.bean2sql.condition.impl.IdNotEqualCondition;
 import com.github.panhongan.mysql.conveyer.bean2sql.table.TableAccess;
 import com.github.panhongan.mysql.conveyer.commons.MysqlConveyerException;
 import com.github.panhongan.mysql.conveyer.core.Converter;
@@ -48,34 +49,15 @@ public class PersonWriteCheckerProto implements WriteChecker<Person, PersonDO> {
     }
 
     @Override
-    public void checkUniq(Person bizObj) throws MysqlConveyerException {
+    public void checkUniq(long oriId, Person bizObj) throws MysqlConveyerException {
         PersonDO condition = new PersonDO();
         condition.setName(bizObj.getName());
-        List<PersonDO> list = personTableAccess.queryByCondition(condition, null);
+
+        IdNotEqualCondition idNotEqualCondition = new IdNotEqualCondition(oriId);
+
+        List<PersonDO> list = personTableAccess.queryByCondition(condition, idNotEqualCondition);
         if (CollectionUtils.isNotEmpty(list)) {
             throw new MysqlConveyerException("待插入记录已经存在, name=" + bizObj.getName());
         }
-    }
-
-    @Override
-    public void checkParametersWhenUpdate(Person bizObj) throws MysqlConveyerException {
-        Preconditions.checkArgument(StringUtils.isNotBlank(bizObj.getName()), "name can't be empty");
-        Preconditions.checkArgument(Objects.nonNull(bizObj.getBirthday()), "birthday can't be null");
-    }
-
-    @Override
-    public Person mergeObjectWhenUpdate(Person oldBizObj, Person newBizObj) throws MysqlConveyerException {
-        Person.Builder builder = Person.newBuilder()
-                .setName(oldBizObj.getName())
-                .setBirthday(oldBizObj.getBirthday());
-
-        if (Objects.nonNull(newBizObj.getName())) {
-            builder.setName(newBizObj.getName());
-        }
-        if (Objects.nonNull(newBizObj.getBirthday())) {
-            builder.setBirthday(newBizObj.getBirthday());
-        }
-
-        return builder.build();
     }
 }
