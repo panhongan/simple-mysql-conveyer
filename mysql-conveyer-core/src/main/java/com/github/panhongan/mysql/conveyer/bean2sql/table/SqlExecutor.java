@@ -41,14 +41,25 @@ public class SqlExecutor {
     private static Map<String, ThrowableFunction<Pair<ResultSet, String>, Object, Throwable>> mapFunc = new HashMap<>();
 
     static {
+        mapFunc.put("byte", p -> p.getLeft().getByte(p.getRight()));
+        mapFunc.put("Byte", p -> p.getLeft().getByte(p.getRight()));
+        mapFunc.put("boolean", p -> p.getLeft().getBoolean(p.getRight()));
         mapFunc.put("Boolean", p -> p.getLeft().getBoolean(p.getRight()));
         mapFunc.put("String", p -> p.getLeft().getString(p.getRight()));
+        mapFunc.put("short", p -> p.getLeft().getShort(p.getRight()));
         mapFunc.put("Short", p -> p.getLeft().getShort(p.getRight()));
+        mapFunc.put("int", p -> p.getLeft().getInt(p.getRight()));
         mapFunc.put("Integer", p -> p.getLeft().getInt(p.getRight()));
+        mapFunc.put("long", p -> p.getLeft().getLong(p.getRight()));
         mapFunc.put("Long", p -> p.getLeft().getLong(p.getRight()));
+        mapFunc.put("float", p -> p.getLeft().getFloat(p.getRight()));
         mapFunc.put("Float", p -> p.getLeft().getFloat(p.getRight()));
+        mapFunc.put("double", p -> p.getLeft().getDouble(p.getRight()));
         mapFunc.put("Double", p -> p.getLeft().getDouble(p.getRight()));
-        mapFunc.put("Date", p -> p.getLeft().getTimestamp(p.getRight()));
+        mapFunc.put("Date", p -> p.getLeft().getDate(p.getRight()));
+        mapFunc.put("LocalDate", p -> p.getLeft().getDate(p.getRight()));
+        mapFunc.put("DateTime", p -> p.getLeft().getTimestamp(p.getRight()));
+        mapFunc.put("LocalDateTime", p -> p.getLeft().getTimestamp(p.getRight()));
         mapFunc.put("BigDecimal", p -> p.getLeft().getBigDecimal(p.getRight()));
     }
 
